@@ -13,10 +13,10 @@
 from selenium import webdriver
 import time, os
 
-def export_png(m,                          # foium map instance
-               html_name,                       # str. ex. 'testmap.html'
+def export_png(m,                     # foium map instance
+               html_name,             # str. ex. 'testmap.html'
                png_name='map.png',    # str. ex. 'testmap.png'
-               delay=5,                             # int or float. ex. 10
+               delay=5,               # int or float. ex. 10
               ):
   
   delay=delay
