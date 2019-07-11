@@ -13,10 +13,10 @@
 from selenium import webdriver
 import time, os
 
-def export_png(m,                          # foium map instance
-               html_name,                       # str. ex. 'testmap.html'
-               png_name='map.png',    # str. ex. 'testmap.png'
-               delay=5,                             # int or float. ex. 10
+def export_png(m,                   # foium map instance
+               html_name,           # str. ex. 'testmap.html'
+               png_name='map.png',  # str. ex. 'testmap.png'
+               delay=5,             # int or float. ex. 10
               ):
   
   delay=delay
@@ -44,7 +44,7 @@ export_png(map_osm, 'map1.html', 'map1.png')
 #map_osm
 ```
 
-<img src="map1.png" height="400" width="400">
+<img src="./images/map1.png" height="400" width="400">
 
 * 초기 화면 지정
 
