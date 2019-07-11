@@ -107,9 +107,8 @@ export_png(map_osm, 'map6.html', 'map6.png')
 
 map_osm
 ```
-
 <img src="./images/map6.png" height="400" width="400">
-html <a href='https://rawcdn.githack.com/jehyunlee/code-snippet/4f9c05c257dba9ad34cc4b55238b25e5081810d2/1_folium_geojson/html/map6.html'>Link</a>
+html link = <a href='https://rawcdn.githack.com/jehyunlee/code-snippet/4f9c05c257dba9ad34cc4b55238b25e5081810d2/1_folium_geojson/html/map6.html'>here</a>
 
 
 ```python
