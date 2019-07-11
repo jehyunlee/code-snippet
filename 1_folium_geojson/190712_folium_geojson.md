@@ -13,14 +13,14 @@
 from selenium import webdriver
 import time, os
 
-def export_png(m,                   # foium map instance
-               html_name,           # str. ex. 'testmap.html'
-               png_name='map.png',  # str. ex. 'testmap.png'
-               delay=5,             # int or float. ex. 10
+def export_png(m,                          # foium map instance
+               html_name,                       # str. ex. 'testmap.html'
+               png_name='map.png',    # str. ex. 'testmap.png'
+               delay=5,                             # int or float. ex. 10
               ):
   
   delay=delay
-  fn = html_name
+  fn = 'html/' + html_name
   tmpurl='file://{path}/{mapfile}'.format(path=os.getcwd(),mapfile=fn)
   m.save(fn)
 
@@ -29,20 +29,86 @@ def export_png(m,                   # foium map instance
   
   #Give the map tiles some time to load
   time.sleep(delay)
-  browser.save_screenshot(png_name)
+  browser.save_screenshot('./images/'+png_name)
   browser.quit()
 ```
 
-## 1. Object creation
+## 1. Basic : Seoul Map
+### 1.0. Object creation
 
 
 ```python
 import folium
-map_osm = folium.Map(location=[37.566345, 126.977893])   # City Hall, Seoul, South Korea
-#map_osm.save('./map1.html')                             # Save map as html
-export_png(map_osm, 'map1.html', 'map1.png')             # Save map as png
-#map_osm                                                 # View map on Notebook
+
+map_osm = folium.Map(location=[37.566345, 126.977893])   # Seoul City Hall
+#map_osm.save('./map1.html')      # Save map as html
+export_png(map_osm, 'map1.html', 'map1.png')   # Save map as png
+#map_osm    # Show map on Notebook
 ```
 
 <img src="./images/map1.png" height="400" width="400">
 
+### 1.1. Set Initial Zoom
+
+
+```python
+map_osm = folium.Map(location=[37.566345, 126.977893], zoom_start=17)  # Zoom Level Set
+export_png(map_osm, 'map2.html', 'map2.png')
+```
+
+<img src="./images/map2.png" height="400" width="400">
+
+### 1.2. Another Map Type
+* Stamen Terrain : Good for visualizaiton of landscape, such as mountains and rivers.
+
+
+```python
+map_osm = folium.Map(location=[37.566345, 126.977893], zoom_start=17,
+                    tiles='Stamen Terrain'  # Tiles setting
+                    )  
+export_png(map_osm, 'map3.html', 'map3.png')
+```
+
+<img src="./images/map3.png" height="400" width="400">
+
+* Stamen Toner
+
+
+```python
+map_osm = folium.Map(location=[37.566345, 126.977893], zoom_start=17,
+                    tiles='Stamen Toner'  # Tiles setting
+                    )  
+export_png(map_osm, 'map4.html', 'map4.png')
+```
+
+<img src="./images/map4.png" height="400" width="400">
+
+* CartoDBPositron
+
+
+```python
+map_osm = folium.Map(location=[37.566345, 126.977893], zoom_start=17, 
+                     tiles='cartodbpositron'
+                    )
+export_png(map_osm, 'map5.html', 'map5.png')
+```
+
+<img src="./images/map5.png" height="400" width="400">
+
+### 1.3. Marker and Popup
+* Marker
+
+
+```python
+map_osm = folium.Map(location=[37.566345, 126.977893], zoom_start=17)
+folium.Marker([37.566345, 126.977893], popup='서울특별시청').add_to(map_osm)
+folium.Marker([37.5658859, 126.9754788], popup='덕수궁').add_to(map_osm)
+export_png(map_osm, 'map6.html', 'map6.png')
+```
+
+<a href='./html/map6.html'><img src="./images/map6.png" height="400" width="400"></a>
+
+
+```python
+
+```
