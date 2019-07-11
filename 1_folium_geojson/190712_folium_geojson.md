@@ -38,14 +38,11 @@ def export_png(m,                   # foium map instance
 
 ```python
 import folium
-map_osm = folium.Map(location=[37.566345, 126.977893])   # 서울특별시청
-#map_osm.save('./map1.html')      # 파일이 저장될 위치
-export_png(map_osm, 'map1.html', 'map1.png')
-#map_osm
+map_osm = folium.Map(location=[37.566345, 126.977893])   # City Hall, Seoul, South Korea
+#map_osm.save('./map1.html')                             # Save map as html
+export_png(map_osm, 'map1.html', 'map1.png')             # Save map as png
+#map_osm                                                 # View map on Notebook
 ```
 
 <img src="./images/map1.png" height="400" width="400">
 
-* 초기 화면 지정
-
-* 다른 유형의 맵 호출
