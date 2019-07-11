@@ -96,7 +96,7 @@ export_png(map_osm, 'map5.html', 'map5.png')
 <img src="./images/map5.png" height="400" width="400">
 
 ### 1.3. Marker and Popup
-* Marker : to see how `Markers` working, opening the `html` map is highly recommended
+* Marker : to experience interactive `Markers`, please click the link below
 
 
 ```python
@@ -104,13 +104,32 @@ map_osm = folium.Map(location=[37.566345, 126.977893], zoom_start=17)
 folium.Marker([37.566345, 126.977893], popup='서울특별시청').add_to(map_osm)
 folium.Marker([37.5658859, 126.9754788], popup='덕수궁').add_to(map_osm)
 export_png(map_osm, 'map6.html', 'map6.png')
-
-map_osm
 ```
+
 <img src="./images/map6.png" height="400" width="400">
-html link = <a href='https://rawcdn.githack.com/jehyunlee/code-snippet/4f9c05c257dba9ad34cc4b55238b25e5081810d2/1_folium_geojson/html/map6.html'>here</a>
+
+interactive html : <a href=https://rawcdn.githack.com/jehyunlee/code-snippet/4f9c05c257dba9ad34cc4b55238b25e5081810d2/1_folium_geojson/html/map6.html>link</a>
+
+* CircleMarker
 
 
 ```python
+map_osm = folium.Map(location=[37.566345, 126.977893], zoom_start=17)
 
+folium.Marker([37.566345, 126.977893], 
+              popup='서울특별시청', 
+              icon=folium.Icon(color='red', icon='info-sign')
+             ).add_to(map_osm)
+
+folium.CircleMarker([37.5658859, 126.9754788], 
+                    radius=100, 
+                    color='#3186cc', 
+                    fill_color='#3186cc', 
+                    popup='덕수궁').add_to(map_osm)
+
+export_png(map_osm, 'map7.html', 'map7.png')
 ```
+
+<img src="./images/map7.png" height="400" width="400">
+
+interactive html : <a href=https://rawcdn.githack.com/jehyunlee/code-snippet/660a1bd588792345f448323fe342ce9aaa646aff/1_folium_geojson/html/map7.html>link</a>
