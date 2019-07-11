@@ -23,7 +23,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_ffa23aed92524cf6b4c31926bdc47dc2 {
+                #map_c340ab2ba1fa4e3cbab86b4d82e2da75 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -35,17 +35,17 @@
 </head>
 <body>    
     
-            <div class="folium-map" id="map_ffa23aed92524cf6b4c31926bdc47dc2" ></div>
+            <div class="folium-map" id="map_c340ab2ba1fa4e3cbab86b4d82e2da75" ></div>
         
 </body>
 <script>    
     
-            var map_ffa23aed92524cf6b4c31926bdc47dc2 = L.map(
-                "map_ffa23aed92524cf6b4c31926bdc47dc2",
+            var map_c340ab2ba1fa4e3cbab86b4d82e2da75 = L.map(
+                "map_c340ab2ba1fa4e3cbab86b4d82e2da75",
                 {
                     center: [37.566345, 126.977893],
                     crs: L.CRS.EPSG3857,
-                    zoom: 10,
+                    zoom: 17,
                     zoomControl: true,
                     preferCanvas: false,
                 }
@@ -55,9 +55,47 @@
 
         
     
-            var tile_layer_7e8adbc8acf6439b848f4be01bea2424 = L.tileLayer(
+            var tile_layer_8a658025fd534aaeb2596e8e557e5017 = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_ffa23aed92524cf6b4c31926bdc47dc2);
+            ).addTo(map_c340ab2ba1fa4e3cbab86b4d82e2da75);
         
+    
+            var marker_184ddcc395334e77935f05bfaf9c6dd7 = L.marker(
+                [37.566345, 126.977893],
+                {}
+            ).addTo(map_c340ab2ba1fa4e3cbab86b4d82e2da75);
+        
+    
+        var popup_bd921cb6dd1142559c36dce02eca9100 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_c2ed00ef3d2741b7b24c2867713b9f80 = $(`<div id="html_c2ed00ef3d2741b7b24c2867713b9f80" style="width: 100.0%; height: 100.0%;">서울특별시청</div>`)[0];
+            popup_bd921cb6dd1142559c36dce02eca9100.setContent(html_c2ed00ef3d2741b7b24c2867713b9f80);
+        
+
+        marker_184ddcc395334e77935f05bfaf9c6dd7.bindPopup(popup_bd921cb6dd1142559c36dce02eca9100)
+        ;
+
+        
+    
+    
+            var marker_b3c5e2e97a16496eb5b1c7476f40dac2 = L.marker(
+                [37.5658859, 126.9754788],
+                {}
+            ).addTo(map_c340ab2ba1fa4e3cbab86b4d82e2da75);
+        
+    
+        var popup_786b520055684e85af82569fb0e093cc = L.popup({"maxWidth": "100%"});
+
+        
+            var html_2c05126602144065b13e1ed9a3409206 = $(`<div id="html_2c05126602144065b13e1ed9a3409206" style="width: 100.0%; height: 100.0%;">덕수궁</div>`)[0];
+            popup_786b520055684e85af82569fb0e093cc.setContent(html_2c05126602144065b13e1ed9a3409206);
+        
+
+        marker_b3c5e2e97a16496eb5b1c7476f40dac2.bindPopup(popup_786b520055684e85af82569fb0e093cc)
+        ;
+
+        
+    
 </script>
