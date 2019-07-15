@@ -553,7 +553,7 @@ interactive html : <a href='https://rawcdn.githack.com/jehyunlee/code-snippet/19
 <img src="./images/map16.png" height="400" width="400">
 
 ## 3. Application on Daejeon Solar Irradiation data Analysis
- 
+
 
 
 ```python
@@ -568,21 +568,6 @@ df.head()
 
 
 
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -673,8 +658,6 @@ df.head()
     </tr>
   </tbody>
 </table>
-</div>
-
 
 
 > `gro_flo_co` : number of floors on ground  
@@ -711,7 +694,7 @@ print('\n# of gu in daejeon (by solar irradiation data) = {}'.format(df_gu.shape
     4  137.352281  62.724121  1062.345897  1449.680231  
     
     # of gu in daejeon (by solar irradiation data) = 5
-    
+
 
 
 ```python
@@ -735,7 +718,7 @@ print('\n# of dong in daejeon (by solar irradiation data) = {}'.format(df_dong.s
     4  55.751209  1250.224541  1443.765304  
     
     # of dong in daejeon (by solar irradiation data) = 168
-    
+
 
 
 ```python
@@ -747,7 +730,7 @@ print(lon_avg, lat_avg)
 ```
 
     127.4013580315068 36.340743659590096
-    
+
 
 * Read and Analyze geojson file
 
@@ -756,9 +739,9 @@ The structure of geojson file is :
 {"type":"FeatureCollection",  
  "bbox":[<i>longitude_min</i>, <i>latitude_min</i>, <i>longitude_max</i>, <i>latitude_max</i>]    
  "features":[ 
-              { "type":"feature",
-                "geometry":{"type":"Polygon", "coordinates":[[ <i><font color='green'> ...many pairs of numbers... </font></i>]]],
-                "properties":{"SIG_CD":"11110", "SIG_EMG_NM":"Jongno-gu", "SIG_KOR_NM":"종로구"},
+    { "type":"feature",
+      "geometry":{"type":"Polygon", "coordinates":[[ <i><font color='green'> ...many pairs of numbers... </font></i>]]],
+      "properties":{"SIG_CD":"11110", "SIG_EMG_NM":"Jongno-gu", "SIG_KOR_NM":"종로구"},
                 <i><font color='green'> ...repeating... </font></i>
 }
 </font></code></pre>
@@ -814,7 +797,7 @@ with open("gu_dj.json","w", encoding='utf-8') as jsonfile:
 
     # of "gu"s in Daejeon = 5
     ['동구', '중구', '서구', '유성구', '대덕구']
-    
+
 
 
 ```python
@@ -876,7 +859,7 @@ with open("dong_dj.json","w", encoding='utf-8') as jsonfile:
     List of  "dong"s in Daejeon = ['가수원동', '가양동', '가오동', '가장동', '가정동', '갈마동', '갈전동', '갑동', '계산동', '관저동', '관평동', '괴곡동', '괴정동', '교촌동', '구도동', '구룡동', '구성동', '구암동', '구완동', '궁동', '금고동', '금동', '금탄동', '낭월동', '내동', '내탑동', '노은동', '대동', '대별동', '대사동', '대성동', '대정동', '대화동', '대흥동', '덕명동', '덕암동', '덕진동', '도룡동', '도마동', '도안동', '둔곡동', '둔산동', '마산동', '만년동', '매노동', '목달동', '목동', '목상동', '무수동', '문지동', '문창동', '문평동', '문화동', '미호동', '반석동', '방동', '방현동', '법동', '변동', '복수동', '복용동', '봉곡동', '봉명동', '봉산동', '부사동', '부수동', '비래동', '비룡동', '사성동', '사정동', '산성동', '산직동', '삼괴동', '삼성동', '삼정동', '상대동', '상서동', '상소동', '석교동', '석봉동', '선화동', '성남동', '성북동', '세동', '세천동', '소제동', '소호동', '송강동', '송정동', '송촌동', '수남동', '신대동', '신동', '신봉동', '신상동', '신성동', '신안동', '신일동', '신촌동', '신탄진동', '신하동', '신흥동', '안산동', '안영동', '어남동', '어은동', '연축동', '오동', '오류동', '오정동', '옥계동', '와동', '외삼동', '용계동', '용두동', '용문동', '용산동', '용운동', '용전동', '용촌동', '용호동', '우명동', '원내동', '원동', '원신흥동', '원정동', '원촌동', '월평동', '유천동', '은행동', '읍내동', '이사동', '이현동', '인동', '자양동', '자운동', '장대동', '장동', '장안동', '장척동', '전민동', '정동', '정림동', '정생동', '주산동', '주촌동', '죽동', '중동', '중리동', '중촌동', '지족동', '직동', '천동', '추동', '추목동', '침산동', '탄방동', '탑립동', '태평동', '판암동', '평촌동', '하기동', '하소동', '학하동', '호동', '홍도동', '화암동', '황호동', '효동', '효평동', '흑석동']
     
     Missing "dong"s = ['부수동', '수남동', '황호동']
-    
+
 
 * Drawing map with administrative disticts boundary
 
