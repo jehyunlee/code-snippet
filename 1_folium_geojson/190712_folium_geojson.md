@@ -565,115 +565,98 @@ from IPython.display import display, HTML
 
 ```python
 df = pd.read_excel('./dj_compact.xlsx')
-display(df.head())
+#display(df.head())
+df.head().style
 ```
 
 
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
 
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>gro_flo_co</th>
-      <th>sig_cd</th>
-      <th>sig_nm</th>
-      <th>emd_cd</th>
-      <th>emd_nm</th>
-      <th>lon</th>
-      <th>lat</th>
-      <th>buld_area</th>
-      <th>buld_elev</th>
-      <th>y17</th>
-      <th>st_y17</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>30110</td>
-      <td>동구</td>
-      <td>30110137</td>
-      <td>대별동</td>
-      <td>127.459746</td>
-      <td>36.285880</td>
-      <td>199.109760</td>
-      <td>80.0</td>
-      <td>1183.461879</td>
-      <td>1444.473755</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1</td>
-      <td>30110</td>
-      <td>동구</td>
-      <td>30110105</td>
-      <td>가오동</td>
-      <td>127.454453</td>
-      <td>36.308615</td>
-      <td>77.392318</td>
-      <td>71.0</td>
-      <td>1152.176436</td>
-      <td>1449.363159</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>1</td>
-      <td>30110</td>
-      <td>동구</td>
-      <td>30110137</td>
-      <td>대별동</td>
-      <td>127.461521</td>
-      <td>36.287914</td>
-      <td>91.076386</td>
-      <td>77.0</td>
-      <td>1182.211623</td>
-      <td>1444.473755</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>1</td>
-      <td>30110</td>
-      <td>동구</td>
-      <td>30110137</td>
-      <td>대별동</td>
-      <td>127.462293</td>
-      <td>36.287703</td>
-      <td>51.201706</td>
-      <td>78.0</td>
-      <td>947.490926</td>
-      <td>1444.473755</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>1</td>
-      <td>30110</td>
-      <td>동구</td>
-      <td>30110137</td>
-      <td>대별동</td>
-      <td>127.461942</td>
-      <td>36.283535</td>
-      <td>455.844167</td>
-      <td>80.0</td>
-      <td>1277.921216</td>
-      <td>1444.473755</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+<style  type="text/css" >
+</style>  
+<table id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104" > 
+<thead>    <tr> 
+        <th class="blank level0" ></th> 
+        <th class="col_heading level0 col0" >gro_flo_co</th> 
+        <th class="col_heading level0 col1" >sig_cd</th> 
+        <th class="col_heading level0 col2" >sig_nm</th> 
+        <th class="col_heading level0 col3" >emd_cd</th> 
+        <th class="col_heading level0 col4" >emd_nm</th> 
+        <th class="col_heading level0 col5" >lon</th> 
+        <th class="col_heading level0 col6" >lat</th> 
+        <th class="col_heading level0 col7" >buld_area</th> 
+        <th class="col_heading level0 col8" >buld_elev</th> 
+        <th class="col_heading level0 col9" >y17</th> 
+        <th class="col_heading level0 col10" >st_y17</th> 
+    </tr></thead> 
+<tbody>    <tr> 
+        <th id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104level0_row0" class="row_heading level0 row0" >0</th> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row0_col0" class="data row0 col0" >1</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row0_col1" class="data row0 col1" >30110</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row0_col2" class="data row0 col2" >동구</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row0_col3" class="data row0 col3" >30110137</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row0_col4" class="data row0 col4" >대별동</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row0_col5" class="data row0 col5" >127.46</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row0_col6" class="data row0 col6" >36.2859</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row0_col7" class="data row0 col7" >199.11</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row0_col8" class="data row0 col8" >80</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row0_col9" class="data row0 col9" >1183.46</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row0_col10" class="data row0 col10" >1444.47</td> 
+    </tr>    <tr> 
+        <th id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104level0_row1" class="row_heading level0 row1" >1</th> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row1_col0" class="data row1 col0" >1</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row1_col1" class="data row1 col1" >30110</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row1_col2" class="data row1 col2" >동구</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row1_col3" class="data row1 col3" >30110105</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row1_col4" class="data row1 col4" >가오동</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row1_col5" class="data row1 col5" >127.454</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row1_col6" class="data row1 col6" >36.3086</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row1_col7" class="data row1 col7" >77.3923</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row1_col8" class="data row1 col8" >71</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row1_col9" class="data row1 col9" >1152.18</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row1_col10" class="data row1 col10" >1449.36</td> 
+    </tr>    <tr> 
+        <th id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104level0_row2" class="row_heading level0 row2" >2</th> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row2_col0" class="data row2 col0" >1</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row2_col1" class="data row2 col1" >30110</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row2_col2" class="data row2 col2" >동구</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row2_col3" class="data row2 col3" >30110137</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row2_col4" class="data row2 col4" >대별동</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row2_col5" class="data row2 col5" >127.462</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row2_col6" class="data row2 col6" >36.2879</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row2_col7" class="data row2 col7" >91.0764</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row2_col8" class="data row2 col8" >77</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row2_col9" class="data row2 col9" >1182.21</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row2_col10" class="data row2 col10" >1444.47</td> 
+    </tr>    <tr> 
+        <th id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104level0_row3" class="row_heading level0 row3" >3</th> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row3_col0" class="data row3 col0" >1</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row3_col1" class="data row3 col1" >30110</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row3_col2" class="data row3 col2" >동구</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row3_col3" class="data row3 col3" >30110137</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row3_col4" class="data row3 col4" >대별동</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row3_col5" class="data row3 col5" >127.462</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row3_col6" class="data row3 col6" >36.2877</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row3_col7" class="data row3 col7" >51.2017</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row3_col8" class="data row3 col8" >78</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row3_col9" class="data row3 col9" >947.491</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row3_col10" class="data row3 col10" >1444.47</td> 
+    </tr>    <tr> 
+        <th id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104level0_row4" class="row_heading level0 row4" >4</th> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row4_col0" class="data row4 col0" >1</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row4_col1" class="data row4 col1" >30110</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row4_col2" class="data row4 col2" >동구</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row4_col3" class="data row4 col3" >30110137</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row4_col4" class="data row4 col4" >대별동</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row4_col5" class="data row4 col5" >127.462</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row4_col6" class="data row4 col6" >36.2835</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row4_col7" class="data row4 col7" >455.844</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row4_col8" class="data row4 col8" >80</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row4_col9" class="data row4 col9" >1277.92</td> 
+        <td id="T_a49bec76_a7ac_11e9_90b1_001a7dda7104row4_col10" class="data row4 col10" >1444.47</td> 
+    </tr></tbody> 
+</table> 
+
 
 
 * Here are explanation on each column, given by data provider
@@ -846,6 +829,8 @@ dong_data = json.loads(open('./Korea_dong_20.json', 'r', encoding='utf-8').read(
 
 
 ```python
+import numpy as np
+
 # 'dong' filter : only Daejeon
 dong_dj = {}
 dong_dj_value = []
@@ -875,6 +860,7 @@ print('\n# of  "dong"s in Daejeon = {}'.format(len(EMD_KOR_NM)))
 print('List of  "dong"s in Daejeon = {}'.format(EMD_KOR_NM))
 
 # Find missings in solar data
+dong_solar = df_dong['emd_nm'].unique()
 missing = []
 for dong in EMD_KOR_NM:
   if dong not in dong_solar:
@@ -940,14 +926,12 @@ interactive html : <a href='https://rawcdn.githack.com/jehyunlee/code-snippet/2e
 # Draw map with administrative distructs
 
 m = folium.Map(location=[lat_avg, lon_avg], zoom_start=11, tiles='Stamen Terrain')
-bins = np.arange(df_dong['y17'].min(), df_dong['st_y17'].max()+100, 100)
 
 folium.Choropleth(
     geo_data = dong_dj,
     data=df_dong,
     name='Satallite Irradiation',
     columns=['emd_nm', 'st_y17'],
-    style_function=style_function_sty,
     key_on='feature.properties.EMD_KOR_NM',
     fill_color='YlOrRd',
     fill_opacity=1,
