@@ -548,7 +548,7 @@ folium.TopoJson(
 export_png(m, 'map16.html', 'map16.png')
 ```
 
-interactive html : <a href='https://rawcdn.githack.com/jehyunlee/code-snippet/1973967361e70c68282e8861dad8c0ad161ec39f/1_folium_geojson/html/map16.html'>link</a>
+interactive html : <a href='https://rawcdn.githack.com/jehyunlee/code-snippet/2e618e12ca2d5312eaae6e5a86db48b988366321/1_folium_geojson/html/map16.html'>link</a>
 
 <img src="./images/map16.png" height="400" width="400">
 
@@ -929,7 +929,7 @@ folium.LayerControl().add_to(m)
 export_png(m, 'map100.html', 'map100.png')
 ```
 
-interactive html : <a href='https://rawcdn.githack.com/jehyunlee/code-snippet/1973967361e70c68282e8861dad8c0ad161ec39f/1_folium_geojson/html/map100.html'>link</a>
+interactive html : <a href='https://rawcdn.githack.com/jehyunlee/code-snippet/2e618e12ca2d5312eaae6e5a86db48b988366321/1_folium_geojson/html/map100.html'>link</a>
 
 <img src="./images/map100.png" height="400" width="400">
 
@@ -972,6 +972,6 @@ folium.LayerControl().add_to(m)
 export_png(m, 'map101.html', 'map101.png')
 ```
 
-interactive html : <a href='https://rawcdn.githack.com/jehyunlee/code-snippet/1973967361e70c68282e8861dad8c0ad161ec39f/1_folium_geojson/html/map101.html'>link</a>
+interactive html : <a href='https://rawcdn.githack.com/jehyunlee/code-snippet/2e618e12ca2d5312eaae6e5a86db48b988366321/1_folium_geojson/html/map101.html'>link</a>
 
 <img src="./images/map101.png" height="400" width="400">
