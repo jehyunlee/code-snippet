@@ -5,4 +5,4 @@ Below are the list of them with proper links.
 
 1. geocoding with `folium` and `geojson` [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/190712_folium_geojson.md'>Link</a>]  
 2. data visualization with `matplotlib`.  
-2.1. Multiple graphs in a frame [<a href=https://rawcdn.githack.com/jehyunlee/code-snippet/3ea9c0e48a51aace37fbd500cf9309c99342b4bc/2_matplotlib/WindAnalysis.html>Link</a>]
+2.1. Multiple graphs in a frame [<a href=https://rawcdn.githack.com/jehyunlee/code-snippet/b76b591f6b37ee9c045ace75401fa0ecd75493cd/2_matplotlib/WindDataAnalysis.html>Link</a>]
