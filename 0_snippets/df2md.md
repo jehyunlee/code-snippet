@@ -8,8 +8,8 @@ def df2md(df):
     df_formatted = pd.concat([df_fmt, df])  
     display(Markdown(df_formatted.to_csv(sep="|", index=False)))  
 ```
-
-> Use Case
+  
+> Use Case  
 
 ```python  
 data = pd.read_excel(ninfile)  
