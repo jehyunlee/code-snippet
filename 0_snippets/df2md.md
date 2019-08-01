@@ -3,18 +3,18 @@
 from IPython.display import Markdown, display
 
 def df2md(df):    
-    fmt = ['---' for i in range(len(df.columns))]
-    df_fmt = pd.DataFrame([fmt], columns=df.columns)
-    df_formatted = pd.concat([df_fmt, df])
-    display(Markdown(df_formatted.to_csv(sep="|", index=False)))
+    fmt = ['---' for i in range(len(df.columns))]  
+    df_fmt = pd.DataFrame([fmt], columns=df.columns)  
+    df_formatted = pd.concat([df_fmt, df])  
+    display(Markdown(df_formatted.to_csv(sep="|", index=False)))  
 ```
 
 > Use Case
 
-```python
-data = pd.read_excel(ninfile)
-data = data.iloc[:, :8]
-df2md(data.head())
+```python  
+data = pd.read_excel(ninfile)  
+data = data.iloc[:, :8]  
+df2md(data.head())  
 ```
 
 
