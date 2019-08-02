@@ -420,7 +420,7 @@ plt.show()
 ```
 
 
-![png](./image/winds2.png)
+![png](./image/winds.png)
 
 
 #### **3.5. Analysis : Data Loss by Filtering**
