@@ -187,7 +187,7 @@ ax1.set_xlim(df1['indexMinutes'].min(), df1['indexMinutes'].max())
 
 
 
-![png](output_20_1.png)
+![png](./image/data.png)
 
 
 **3.4.2. Plot Preparation One by One**  
@@ -420,7 +420,7 @@ plt.show()
 ```
 
 
-![png](output_37_0.png)
+![png](./image/winds2.png)
 
 
 #### **3.5. Analysis : Data Loss by Filtering**
@@ -496,5 +496,5 @@ plt.savefig('num_data.png', dpi=200)
 
 
 
-![png](output_42_1.png)
+![png](./image/num_data.png)
 
