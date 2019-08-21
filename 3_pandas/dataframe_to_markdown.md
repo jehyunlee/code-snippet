@@ -1,4 +1,4 @@
-##### Nice representation of DataFrame to markdown
+### Nice representation of DataFrame to markdown
 * Function definition
 
 
