@@ -11,5 +11,5 @@ Below are the list of them with proper links.
 2.3. Scatter plot on a Map [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/distrib_map/distrib_map.md#2212-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EA%B3%B5%EA%B0%84-%EB%B6%84%ED%8F%AC-%EB%B6%84%EC%84%9D'>Link</a>]  
   
 3. data analysis with `pandas`.  
-3.1. Nice representation of `pandas DataFrame` to `markdown` [<a href='https://github.com/jehyunlee/code-snippet/blob/master/3_pandas/dataframe_to_markdown.md'>Link</a>]  
+3.1. Nice representation of `pandas DataFrame` to `markdown` [<a href='https://github.com/jehyunlee/code-snippet/blob/master/3_pandas/dataframe_to_markdown.md#nice-representation-of-dataframe-to-markdown'>Link</a>]  
 3.2. Find address (raw and column) by value [<a href='https://github.com/jehyunlee/code-snippet/blob/master/3_pandas/find_address_by_value.md#find-address-column-row-by-value'>Link</a>]  
