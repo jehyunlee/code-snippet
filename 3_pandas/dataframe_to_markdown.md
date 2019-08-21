@@ -39,3 +39,18 @@ Bogota|Colombia|4.6|-74.08
 Caracas|Venezuela|10.48|-66.86
 
 
+
+* Otherwise, if direct print() is converted to markdown,
+
+
+```python
+print(df)
+```
+
+               City    Country  Latitude  Longitude
+    0  Buenos Aires  Argentina    -34.58     -58.66
+    1      Brasilia     Brazil    -15.78     -47.91
+    2      Santiago      Chile    -33.45     -70.66
+    3        Bogota   Colombia      4.60     -74.08
+    4       Caracas  Venezuela     10.48     -66.86
+    
