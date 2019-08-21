@@ -7,7 +7,7 @@ Below are the list of them with proper links.
   
 2. data visualization with `matplotlib`.  
 2.1. Multiple graphs in a frame [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/WindAnalysis.md'>Link</a>]  
-2.2. Data distribution (bar plot) with text, for Categorical data [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/distrib_map/distrib_map.md#22111-categorical-data'>Link</a>] and Numerical data [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/distrib_map/distrib_map.md#22112-numerical-data'>Link</a>] 
+2.2. Data distribution (bar plot) with text, for Categorical data [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/distrib_map/distrib_map.md#22111-categorical-data'>Link</a>] and Numerical data [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/distrib_map/distrib_map.md#22112-numerical-data'>Link</a>]  
 2.3. Scatter plot on a Map [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/distrib_map/distrib_map.md#2212-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EA%B3%B5%EA%B0%84-%EB%B6%84%ED%8F%AC-%EB%B6%84%EC%84%9D'>Link</a>]  
   
 3. data analysis with `pandas`.  
