@@ -561,10 +561,9 @@ def vis_map(df: pd.DataFrame,
 
 ```
 
+* 건물 표고 (거리 기준)
 
 ```python
-# 건물 표고
-
 vis_map(df=data_vis, xy=['tm_x', 'tm_y'], col='buld_elev', pal='YlOrBr', title='건물 표고', 
             bintup=(0, 160, 20))
 ```
@@ -589,8 +588,9 @@ emd_t10|buld_elev_t10|emd_b10|buld_elev_b10
 ![png](output_37_1.png)
 
 
+* 건물 표고 (위경도 기준)
+
 ```python
-# 건물 표고
 
 vis_map(df=data_vis, xy=['lon', 'lat'], col='buld_elev', pal='YlOrBr', title='건물 표고', 
             bintup=(0, 160, 20))
