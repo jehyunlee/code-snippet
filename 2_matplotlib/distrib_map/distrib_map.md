@@ -589,20 +589,6 @@ emd_t10|buld_elev_t10|emd_b10|buld_elev_b10
 ![png](output_37_1.png)
 
 
-
-```python
-import shutil
-shutil.copy2(imagepath+'map_건물 표고.png', imagepath+'map_건물 표고_m.png')
-```
-
-
-
-
-    'C:\\Users\\sec\\SynologyDrive\\KIER_ArbeitPlatz\\12_EnergyForecast\\03_태양광_음영\\NGL\\190605_EDA\\190611_EDA\\images\\map_건물 표고_m.png'
-
-
-
-
 ```python
 # 건물 표고
 
@@ -628,16 +614,4 @@ emd_t10|buld_elev_t10|emd_b10|buld_elev_b10
 
 
 ![png](output_39_1.png)
-
-
-
-```python
-shutil.copy2(imagepath+'map_건물 표고.png', imagepath+'map_건물 표고_polar.png')
-```
-
-
-
-
-    'C:\\Users\\sec\\SynologyDrive\\KIER_ArbeitPlatz\\12_EnergyForecast\\03_태양광_음영\\NGL\\190605_EDA\\190611_EDA\\images\\map_건물 표고_polar.png'
-
 
