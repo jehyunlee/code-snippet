@@ -13,5 +13,5 @@ Below are the list of them with proper links.
 3. data analysis with `pandas`.  
 3.1. Nice representation of `pandas DataFrame` to `markdown` [<a href='https://github.com/jehyunlee/code-snippet/blob/master/3_pandas/dataframe_to_markdown.md#nice-representation-of-dataframe-to-markdown'>Link</a>]  
 3.2. Find address (raw and column) by value [<a href='https://github.com/jehyunlee/code-snippet/blob/master/3_pandas/find_address_by_value.md#find-address-column-row-by-value'>Link</a>]  
-3.3. Create Timestamp from split data [<a href='https://github.com/jehyunlee/code-snippet/blob/master/3_pandas/IEC61400.md#6-create-timestamp-from-split-data'>Link</a>]
+3.3. Create Timestamp from split data [<a href='https://github.com/jehyunlee/code-snippet/blob/master/3_pandas/IEC61400.md#6-create-timestamp-from-split-data'>Link</a>]  
 3.4. Find first data of each date [<a href='https://github.com/jehyunlee/code-snippet/blob/master/3_pandas/IEC61400.md#8-first-data-of-each-date'>Link</a>]
