@@ -16,3 +16,6 @@ Below are the list of them with proper links.
 3.2. Find address (raw and column) by value [<a href='https://github.com/jehyunlee/code-snippet/blob/master/3_pandas/find_address_by_value.md#find-address-column-row-by-value'>Link</a>]  
 3.3. Create Timestamp from split data [<a href='https://github.com/jehyunlee/code-snippet/blob/master/3_pandas/IEC61400.md#6-create-timestamp-from-split-data'>Link</a>]  
 3.4. Find first data of each date [<a href='https://github.com/jehyunlee/code-snippet/blob/master/3_pandas/IEC61400.md#8-first-data-of-each-date'>Link</a>]
+
+4. techniques of `numpy`.
+4.1. Numpy Vectorization [<a href='https://github.com/jehyunlee/code-snippet/blob/master/4_numpy/vectorize.md'>Link</a>]
