@@ -176,7 +176,7 @@ convolve(np.eye(4), [1,2,1])
 
 
 
-#### numpy.vectorize as decoration
+### * numpy.vectorize as decoration
 
 
 ```python
