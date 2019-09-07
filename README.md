@@ -20,4 +20,4 @@ Below are the list of them with proper links.
 
 4. techniques of `numpy`.  
 4.1. Numpy vectorization functions [<a href='https://github.com/jehyunlee/code-snippet/blob/master/4_numpy/vectorize.md'>Link</a>]  
-4.2. numpy.vectorize() [<a href='https://github.com/jehyunlee/code-snippet/blob/master/4_numpy/numpy_vectorize.md'>Link</a>] and as decoration[<a href='https://github.com/jehyunlee/code-snippet/blob/master/4_numpy/numpy_vectorize.md#numpyvectorize-as-decoration'>Link</a>]
+4.2. numpy.vectorize() [<a href='https://github.com/jehyunlee/code-snippet/blob/master/4_numpy/numpy_vectorize.md'>Link</a>] and as decoration[<a href='https://github.com/jehyunlee/code-snippet/blob/master/4_numpy/numpy_vectorize.md#-numpyvectorize-as-decoration'>Link</a>]
