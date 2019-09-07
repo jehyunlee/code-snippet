@@ -1,4 +1,4 @@
-### Numpy Vectorization : numpy.vectorize()
+### Numpy Vectorization : numpy.vectorize() and decoration
 > https://docs.scipy.org/doc/numpy/reference/generated/numpy.vectorize.html
 
 * `numpy.vectorize()` : object의 nested sequence느 numpy array를 input으로 받고, numpy array 또는 numpy array의 tuple을 return하는 vectorized function을 정의함.
@@ -174,4 +174,55 @@ convolve(np.eye(4), [1,2,1])
            [0., 0., 1., 2., 1., 0.],
            [0., 0., 0., 1., 2., 1.]])
 
+
+
+#### numpy.vectorize as decoration
+
+
+```python
+@np.vectorize
+def myfunc_decvec(a, b):
+  "Return a-b if a > b, otherwise return a + b"
+  return a-b if a > b else a+b
+
+myfunc_decvec([1,2,3,4], 2)
+```
+
+
+
+
+    array([3, 4, 1, 2])
+
+
+
+##### @decoration with options: Error!
+
+> Note that `np.vectorize` isn't really meant as a decorator except for the simplest cases. If you need to specify an explicit `otype`, use the usual form `new_func = np.vectorize(old_func, otypes=...)` or use `functools.partial` to get a decorator.  
+>  
+> source : https://stackoverflow.com/questions/14986697/numpy-vectorize-as-a-decorator-with-arguments
+
+
+```python
+@np.vectorize(doc='Vectorized "myfunc"')
+def myfunc_decvec(a, b):
+  "Return a-b if a > b, otherwise return a + b"
+  return a-b if a > b else a+b
+
+print('vectorization function docstring : {}'.format(myfunc_decvec.__doc__))
+```
+
+
+    ---------------------------------------------------------------------------
+
+    TypeError                                 Traceback (most recent call last)
+
+    <ipython-input-36-0cc9eadaea22> in <module>
+    ----> 1 @np.vectorize(doc='Vectorized "myfunc"')
+          2 def myfunc_decvec(a, b):
+          3   "Return a-b if a > b, otherwise return a + b"
+          4   return a-b if a > b else a+b
+          5 
+    
+
+    TypeError: __init__() missing 1 required positional argument: 'pyfunc'
 
