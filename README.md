@@ -3,7 +3,10 @@ This repository `code-snippet` is for frequently used code.
 Some of them are open-sourced, and some are self-written.
 Below are the list of them with proper links.
 
-1. geocoding with `folium` and `geojson` [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/190712_folium_geojson.md'>Link</a>]  
+1. geocoding with `folium`, `geopandas` and `geojson`  
+1.1. interactive geocoding with `folium` [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/190712_folium_geojson.md'>Link</a>]  
+1.2. tips of `geopandas` from Pycon 2019 tutorial  
+    * Korean font problem : try another encoding [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/geopandas/pycon2019tutorial/1/(Basic)Geospatial_Data_with_Python_1st.md#tip-%ED%95%9C%EA%B8%80%EC%9D%B4-%EA%B9%A8%EC%A7%88-%EA%B2%BD%EC%9A%B0-gpdread_file%EC%9D%98-encoding-%EC%98%B5%EC%85%98-%EB%B3%80%EA%B2%BD'>Link</a>]
   
 2. data visualization with `matplotlib` and `seaborn`.  
 2.1. Multiple graphs in a frame [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/wind_analysis/WindAnalysis.md'>Link</a>]  
