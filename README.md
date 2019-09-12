@@ -7,6 +7,9 @@ Below are the list of them with proper links.
 1.1. interactive geocoding with `folium` [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/190712_folium_geojson.md'>Link</a>]  
 1.2. tips of `geopandas` from Pycon 2019 tutorial  
     * Korean font problem : try another encoding [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/geopandas/pycon2019tutorial/1/(Basic)Geospatial_Data_with_Python_1st.md#tip-%ED%95%9C%EA%B8%80%EC%9D%B4-%EA%B9%A8%EC%A7%88-%EA%B2%BD%EC%9A%B0-gpdread_file%EC%9D%98-encoding-%EC%98%B5%EC%85%98-%EB%B3%80%EA%B2%BD'>Link</a>]
+    * Reading `geometry` data as text [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/geopandas/pycon2019tutorial/1/(Basic)Geospatial_Data_with_Python_1st.md#tip-geometry%EC%9D%98-%ED%98%95%EC%83%81%EC%9D%B4-%EC%95%84%EB%8B%8C-%EA%B0%92%EC%9D%84-%ED%99%95%EC%9D%B8%ED%95%98%EA%B3%A0-%EC%8B%B6%EC%9C%BC%EB%A9%B4-%EB%B2%94%EC%9C%84%EB%A1%9C-%ED%98%B8%EC%B6%9C'>Link</a>]
+    * About geocoding `coordination system`, `epsg` and `proj` [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/geopandas/pycon2019tutorial/1/(Basic)Geospatial_Data_with_Python_1st.md#tip-%ED%95%9C%EA%B5%AD%EC%9D%98-%EC%A3%BC%EC%9A%94-%EC%A2%8C%ED%91%9C%EA%B3%84-%EB%B0%8F-proj4-%EC%9D%B8%EC%9E%90-%EC%A0%95%EB%A6%AC'>Link</a>]
+    * Geometry file type selection by `driver` [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/geopandas/pycon2019tutorial/1/(Basic)Geospatial_Data_with_Python_1st.md#tip-geodataframe-%EC%A0%80%EC%9E%A5-%ED%98%95%EC%8B%9D%EC%9D%84-%EB%B0%94%EA%BF%80-%EB%95%8C%EB%8A%94-driver-%EC%82%AC%EC%9A%A9'>Link</a>]  
   
 2. data visualization with `matplotlib` and `seaborn`.  
 2.1. Multiple graphs in a frame [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/wind_analysis/WindAnalysis.md'>Link</a>]  
