@@ -11,7 +11,7 @@ def df2md(df):
     df_fmt = pd.DataFrame([fmt], columns=df.columns)
     df_formatted = pd.concat([df_fmt, df])
     display(Markdown(df_formatted.to_csv(sep="|", index=False)))
-    df.drop(columns=['(idx)'], axis=1, inplace=True)
+    df.drop(columns='(idx)', axis=1, inplace=True)
 ```
 
 * Use Case
