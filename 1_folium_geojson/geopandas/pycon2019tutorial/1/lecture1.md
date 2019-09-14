@@ -302,7 +302,7 @@ seoul_h_dong_gdf['geometry'][10]
 
 
 
-![svg](/images/output_25_0.svg)
+![svg](/1_folium_geojson/geopandas/pycon2019tutorial/1/images/output_25_0.svg)
 
 
 
@@ -537,7 +537,7 @@ seoul_h_dong_gdf.plot(color='orange', edgecolor='white')
 
 
 
-![png](/images/output_42_1.png)
+![png](/1_folium_geojson/geopandas/pycon2019tutorial/1/images/output_42_1.png)
 
 
 
@@ -702,7 +702,7 @@ seoul_h_dong_gdf.plot()
 
 
 
-![png](/images/output_51_1.png)
+![png](/1_folium_geojson/geopandas/pycon2019tutorial/1/images/output_51_1.png)
 
 
 ##  Writing data
