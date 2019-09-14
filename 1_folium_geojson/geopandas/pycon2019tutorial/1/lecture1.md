@@ -830,6 +830,6 @@ gdf['geom'][0]
 
 
 
-![svg](/images/output_61_0.svg)
+![svg](/1_folium_geojson/geopandas/pycon2019tutorial/1/images/output_61_0.svg)
 
 
