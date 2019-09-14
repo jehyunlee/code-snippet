@@ -19,7 +19,7 @@ Below are the list of them with proper links.
 2.5. Violin plot with Raw data [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/violin_raw/violin_raw.md#322-violin-plot-with-scatter--line-plot--raw-data'>Link</a>], subplot control with `gridspec` [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/violin_raw/violin_raw.md#321-violin-plot-hysteresis-on-and-off'>Link</a>]  
   
 3. data analysis with `pandas`.  
-3.1. Nice representation of `pandas DataFrame` to `markdown` [<a href='https://github.com/jehyunlee/code-snippet/blob/master/3_pandas/dataframe_to_markdown.md#nice-representation-of-dataframe-to-markdown'>Link</a>]  
+3.1. Nice representation of `pandas DataFrame` to `markdown` [<a href='https://github.com/jehyunlee/code-snippet/blob/master/3_pandas/df2md/df2md.md'>Link</a>]  
 3.2. Find address (raw and column) by value [<a href='https://github.com/jehyunlee/code-snippet/blob/master/3_pandas/find_address_by_value.md#find-address-column-row-by-value'>Link</a>]  
 3.3. Create Timestamp from split data [<a href='https://github.com/jehyunlee/code-snippet/blob/master/3_pandas/IEC61400.md#6-create-timestamp-from-split-data'>Link</a>]  
 3.4. Find first data of each date [<a href='https://github.com/jehyunlee/code-snippet/blob/master/3_pandas/IEC61400.md#8-first-data-of-each-date'>Link</a>]
