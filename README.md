@@ -19,7 +19,7 @@ Below are the list of them with proper links.
 2.2. Data distribution (bar plot) with text, for Categorical data [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/distrib_map/distrib_map.md#22111-categorical-data'>Link</a>] and Numerical data [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/distrib_map/distrib_map.md#22112-numerical-data'>Link</a>]  
 2.3. Scatter plot on a Map [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/distrib_map/distrib_map.md#2212-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EA%B3%B5%EA%B0%84-%EB%B6%84%ED%8F%AC-%EB%B6%84%EC%84%9D'>Link</a>]  
 2.4. Colors and Colormaps [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/colors/colors_and_maps.md'>Link</a>]  
-2.5. Add color function [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/add_color/add_color.md'>Link</a>]
+2.5. Add color function [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/add_color/add_color.md'>Link</a>]  
 2.6. Violin plot with Raw data [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/violin_raw/violin_raw.md#322-violin-plot-with-scatter--line-plot--raw-data'>Link</a>], subplot control with `gridspec` [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/violin_raw/violin_raw.md#321-violin-plot-hysteresis-on-and-off'>Link</a>]  
   
 3. data analysis with `pandas`.  
