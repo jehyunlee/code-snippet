@@ -38,7 +38,11 @@ def add_color(c1, c2, c3, ipol=0):
         c = c2 + (4*ipol-2) * c3
     else:
         c = (4 - 4*ipol) * c2 + c3
-    return mpl.colors.to_hex(c/c.max())
+    
+    if c.max() > 1:
+        c = c/c.max()
+        
+    return mpl.colors.to_hex(c)
 ```
 
 #### 3. visualize
@@ -50,10 +54,20 @@ def add_color(c1, c2, c3, ipol=0):
 n = 200
 fig, ax = plt.subplots(figsize=(8, 5))
 for x in range(n+1):
-    ax.axvline(x, color=add_color(c1,c2,c3, x/n), linewidth=4) 
+    color = add_color(c1,c2,c3, x/n)
+    if x in [0, 50, 100, 150, 200]:
+        print(color)
+    ax.axvline(x, color=color, linewidth=4) 
 plt.show()
 ```
 
+    #8b0000
+    #8b8080
+    #008080
+    #0055ff
+    #0000ff
 
-![png](output_6_0.png)
+
+
+![png](output_6_1.png)
 
