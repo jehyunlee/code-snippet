@@ -8,7 +8,7 @@
 > plugins : https://python-visualization.github.io/folium/plugins.html#folium-plugins  
 > * sample 1 : https://dailyheumsi.tistory.com/85?category=815369  
 > * sample 2 : https://dailyheumsi.tistory.com/92?category=815369  
-  
+
 > contributions : https://nbviewer.jupyter.org/github/python-visualization/folium_contrib/tree/master/notebooks/  
 
 
@@ -20,7 +20,7 @@ import folium
 * This case is for `Firefox`.  
 ```python
 browser = webdriver.Firefox()
-```  
+```
 should be modified according to the browser.  
 * Since the size of `html` is too large sometimes, `png` is preferred.  
 * Large `html` file exceeds the maximum waiting time for rendering.
@@ -288,6 +288,9 @@ def add_color(c1, c2, c3, ipol=0):
 import branca
 import branca.colormap as cm
 import random
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
 
 def dj_datamap(df,               # pandas DataFrame
                col,              # column to plot in df
@@ -299,11 +302,13 @@ def dj_datamap(df,               # pandas DataFrame
                binstep = 5,      # number of bins 
                colortype = 'linear'  # 'linear' or 'step'
               ):
+    # filename to be saved
+    filename = '{}_{}'.format(col, legend)
     
     # folium map
     m = folium.Map(location=[lat_avg, lon_avg], 
                    tiles='CartoDB positron',
-                   zoom_start=14)
+                   zoom_start=11)
 
     # style function for 'gu'
     style_function_gu = {
@@ -358,10 +363,48 @@ def dj_datamap(df,               # pandas DataFrame
         clrmap = cm.LinearColormap(colors=[c1, c2, c3], vmin=vmin, vmax=vmax)
     elif colortype == 'step':
         _colors = []
-        for i in range(binstep):
-            _colors.append(add_color(c1, c2, c3, i/(binstep-1)))
+        for i in range(binstep+1):
+            _colors.append(add_color(c1, c2, c3, i/(binstep)))
+        
+        #- colormap visualization
+        bins = np.linspace(vmin, vmax, num=binstep+1)
+    
+        fig, axes = plt.subplots(figsize=(2,4), nrows=binstep+1, ncols=2, sharex=True)
+        for i in range(binstep+1):
+            rect = axes[i][0].patch
+            rect.set_facecolor(_colors[binstep-i-1])
+            if i == binstep:
+                rect.set_alpha(0)
+            axes[i][0].set_xlabel('')
+            axes[i][0].set_ylabel('')
+            axes[i][0].set_xticks([])
+            axes[i][0].set_yticks([])
+            axes[i][0].set_xticklabels([])
+            axes[i][0].set_yticklabels([])
+            axes[i][0].spines['top'].set_visible(True)
+            axes[i][0].spines['right'].set_visible(False)
+            axes[i][0].spines['bottom'].set_visible(False)
+            axes[i][0].spines['left'].set_visible(False)
+        for i in range(binstep+1):
+            axes[i][1].text(0.1, 1, '{:d}'.format(int(bins[binstep-i])), transform=axes[i][1].transAxes, fontsize=14, va='top', ha='left')
+            axes[i][1].set_xlabel('')
+            axes[i][1].set_ylabel('')
+            axes[i][1].set_xticks([])
+            axes[i][1].set_yticks([])
+            axes[i][1].set_xticklabels([])
+            axes[i][1].set_yticklabels([])
+            axes[i][1].spines['top'].set_visible(False)
+            axes[i][1].spines['right'].set_visible(False)
+            axes[i][1].spines['bottom'].set_visible(False)
+            axes[i][1].spines['left'].set_visible(False)
+            
+        plt.subplots_adjust(wspace=0, hspace=0, left=0.05, right=0.95, top=0.99, bottom=0.12)
+        #plt.tight_layout()
+        plt.savefig('./images/{}_legend.png'.format(filename))
+        plt.show()
+        
         clrmap = cm.StepColormap(colors=_colors, vmin=vmin, vmax=vmax,
-                                index=np.linspace(vmin, vmax, binstep))
+                                index=np.linspace(vmin, vmax, binstep+1))
     
     # plot : data as markers (actually, dots)
     for idx in df.index[:datanum]:
@@ -396,13 +439,39 @@ def dj_datamap(df,               # pandas DataFrame
     folium.LayerControl().add_to(m)
     
     # save as file
-    filename = '{}_{}'.format(col, legend)
     html2png(m, '{}.html'.format(filename), '{}.png'.format(filename))
+    
+    return _colors
 ```
 
 
 ```python
 
 colors = ['blue', 'yellow', 'red']
-dj_datamap(df, 'gro_flo_co', colors, legend='number of floors', datanum=None, binmin=0, binmax=20, binstep=10, colortype='linear')
+dj_datamap(df, 'gro_flo_co', colors, legend='number of floors', datanum=None, binmin=0, binmax=20, binstep=10, colortype='step')
 ```
+
+
+![png](/images/gro_flo_co_number of floors_legend.png)
+
+
+
+
+
+    ['#0000ff',
+     '#6666ff',
+     '#ccccff',
+     '#ffffcc',
+     '#ffff66',
+     '#ffff00',
+     '#ffb600',
+     '#ff8e00',
+     '#ff7100',
+     '#ff4900',
+     '#ff0000']
+
+
+
+Note : the `html` file is about 70 MB, where `png` file is only about 640 KB.  
+
+![png](/images/gro_flo_co_number of floors.png)
