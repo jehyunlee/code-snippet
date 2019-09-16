@@ -474,4 +474,4 @@ dj_datamap(df, 'gro_flo_co', colors, legend='number of floors', datanum=None, bi
 
 Note : the `html` file is about 70 MB, where `png` file is only about 640 KB.  
 
-![png](/images/gro_flo_co_number of floors.png)
+![png](/images/gro_flo_co_number%20of%20floors_legend.png)
