@@ -18,8 +18,6 @@ def df2md(df, maxlen=20):
         _df[col] = _df[col].astype('str')
         if (_df[col].apply(len)> maxlen).any() :
             _df[col].loc[_df[col].apply(len) > maxlen] = _df[col].str.slice(stop=maxlen) + ' ...'
-#         if (_df[col].str.len()> maxlen).any() :
-#             _df[col].loc[_df[col].str.len() > maxlen] = _df[col].str.slice(stop=maxlen) + ' ...'
 
     if '(index)' not in _df.columns:
         _df.insert(0, '(index)', df.index)
