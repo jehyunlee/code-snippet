@@ -36,3 +36,6 @@ Below are the list of them with proper links.
 4. techniques of `numpy`.  
 4.1. Numpy vectorization functions [<a href='https://github.com/jehyunlee/code-snippet/blob/master/4_numpy/vectorize.md'>Link</a>]  
 4.2. numpy.vectorize() [<a href='https://github.com/jehyunlee/code-snippet/blob/master/4_numpy/numpy_vectorize.md'>Link</a>] and as decoration[<a href='https://github.com/jehyunlee/code-snippet/blob/master/4_numpy/numpy_vectorize.md#-numpyvectorize-as-decoration'>Link</a>]
+
+5. image processing with `pillow`, `scikit-image`, `hyperspy` and `pyimagej`.  
+5.1. Read metadata from `.dm3`(TEM) and `.tif`(SEM), then export to `.jpg`. [[Link](https://github.com/jehyunlee/image_processing/blob/master/meta2jpg/dm3_to_metajpg_190625.md)]
