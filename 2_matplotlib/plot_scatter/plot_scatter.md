@@ -41,3 +41,26 @@ def plot_scatter(ncols,         # number of columns
     plt.tight_layout()
     plt.savefig('./images/corr_scatter_{}.png'.format(filename))
 ```
+<br>  
+
+### Usage  
+```python
+cols = dfc.columns
+cols_nm = np.array(['건물 층 수', 'x좌표(m)', 'y좌표(m)', '경도', '위도',\
+           '건물 면적', '건물 표고', '일사량 손실률', '절대 높이', '음영원 수', \
+           '음영원 총 면적', '음영원 평균 면적', '음영원 최대 앙각', '음영원 x좌표 분산', '음영원 y좌표 분산', \
+           '건물 반경', '인접건물 수', '인접건물 총 면적', '인접건물 평균 면적', '인접건물 x좌표 분산', \
+           '인접건물 y좌표 분산', '인접건물 절대 높이 분산', '인접건물 상대 높이 분산', '인접건물 최대 상대높이', '인접건물 앙각 분산', \
+           '인접건물 최대 앙각', '인접건물 넓이반영 앙각 분산', '인접건물 넓이반영 최대앙각', '음영원 앙각 분산', '음영원 넓이반영 앙각 분산', \
+           '음영원 넓이반영 최대 앙각'])
+
+
+ncols = 4
+nrows = 3
+cols_plot = [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
+filename = 'corr_scatter_nb'
+
+plot_scatter(ncols, nrows, dfc, cols_plot, filename)
+``````  
+
+![png](https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/plot_scatter/images/output_44_1.png)                 
