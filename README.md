@@ -3,6 +3,9 @@ This repository `code-snippet` is for frequently used code.
 Some of them are open-sourced, and some are self-written.
 Below are the list of them with proper links.
 
+0. subsets of code-snippets
+0.1. `base` : Korean Font + Figure Style + df2md  
+  
 1. geocoding with `folium`, `geopandas` and `geojson`  
 1.1. interactive geocoding with `folium` [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/190712_folium_geojson.md'>Link</a>]  
 1.2. displaying data on map with administrative borders[<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/geopandas/data_on_map/190914_DaejeonMap.md'>Link</a>]  
