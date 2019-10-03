@@ -4,8 +4,8 @@ Some of them are open-sourced, and some are self-written.
 Below are the list of them with proper links.
 
 0. Work-snippet, a subset of `Code-snippet`  
-0.0. Readme [Link](https://github.com/jehyunlee/code-snippet/blob/master/0_work-snippet/Readme.md)  
-0.1. `base` : Korean Font + Figure Style + df2md() [Download](https://github.com/jehyunlee/code-snippet/blob/master/0_work-snippet/pegab/pegab.py)   
+0.0. Readme [[Link](https://github.com/jehyunlee/code-snippet/blob/master/0_work-snippet/Readme.md)]  
+0.1. `base` : Korean Font + Figure Style + df2md() [[Download](https://github.com/jehyunlee/code-snippet/blob/master/0_work-snippet/pegab/pegab.py)]   
   
 1. geocoding with `folium`, `geopandas` and `geojson`  
 1.1. interactive geocoding with `folium` [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/190712_folium_geojson.md'>Link</a>]  
