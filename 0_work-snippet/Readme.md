@@ -31,3 +31,4 @@ print(sys.path)
 ### 2. Work-snippet 목록  
 #### [1]. `pegab` : pega-base   
 * 기능 : (1) 한글 사용 설정, (2) Figure Style 설정, (3) df2md  
+![png](https://github.com/jehyunlee/code-snippet/blob/master/0_work-snippet/pegab/images/run.png)
