@@ -45,6 +45,7 @@ if system == 'Windows':
 
     print(font_name)
     plt.rc('font', family=font_name)
+    print("# matplotlib 한글 사용 가능")
 
 elif system == 'Linux':
     datapath = os.getcwd() + '//'
@@ -61,6 +62,7 @@ elif system == 'Linux':
 
     fm._rebuild()
     mpl.rcParams['axes.unicode_minus'] = False
+    print("# matplotlib 한글 사용 가능")
 
 else:
     print('# Sorry, my code has compatibility with Windows and Linux only.')
@@ -69,13 +71,17 @@ else:
 #<<<<<< 1. Korean Font Setting
 
 #>>>>>> 2.Figure Style Setting
+style = 'whitegrid'
+palette = 'muted'
+context = 'talk'
 
-sns.set_style('whitegrid')
-sns.palplot(sns.color_palette('muted'))
-sns.set_context("talk")
+sns.set_style(style)
+sns.palplot(sns.color_palette(palette))
+sns.set_context(context)
 plt.rc('font', family=font_name)
 fm._rebuild()
 mpl.rcParams['axes.unicode_minus'] = False
+print("# Seaborn Figure Style : {}, {}, {}".format(style, palette, context))
 
 #<<<<<< 2.Figure Style Setting
 
@@ -97,7 +103,9 @@ def df2md(df, maxlen=20):
     df_formatted = pd.concat([df_fmt, _df])
     display(Markdown(df_formatted.to_csv(sep="|", index=False)))
     _df.drop(columns='(index)', axis=1, inplace=True)
-    
+
+print("# Function : {} is available!".format('df2md()'))
+
 #<<<<<< 3. Nice Representation of dataframe in markdown
     
 
