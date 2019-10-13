@@ -95,12 +95,12 @@ seoul_h_dong_gdf.plot(color='gray')
 
 
 
-![png](output_7_1.png)
+![png](/1_folium_geojson/geopandas/pycon2019tutorial/2/images/output_7_1.png)
 
 
 ####  Dissolve를 이용해 행정동 -> 시군구 지도 데이터 만들기
 
-![dissolve.png](attachment:dissolve.png)
+![dissolve.png](/1_folium_geojson/geopandas/pycon2019tutorial/2/images/dissolve.png)
 
 ##### * `Dissolve` method 
 
@@ -176,7 +176,7 @@ seoul_sgg.plot(color='orange')
 
 
 
-![png](output_10_2.png)
+![png](/1_folium_geojson/geopandas/pycon2019tutorial/2/images/output_10_2.png)
 
 
 
@@ -228,7 +228,7 @@ seoul_sgg.plot()
 
 
 
-![png](output_13_1.png)
+![png](/1_folium_geojson/geopandas/pycon2019tutorial/2/images/output_13_1.png)
 
 
 
@@ -308,7 +308,7 @@ geom[0]
 
 
 
-![svg](output_18_0.svg)
+![svg](/1_folium_geojson/geopandas/pycon2019tutorial/2/images/output_18_0.svg)
 
 
 
@@ -382,5 +382,5 @@ sb_gdf.plot()
 
 
 
-![png](output_23_1.png)
+![png](/1_folium_geojson/geopandas/pycon2019tutorial/2/images/output_23_1.png)
 
