@@ -30,3 +30,4 @@ for ii in range(0,360,1):
 %%bash
 ffmpeg -r 30 -i ./images/pca_movie%d.png -c:v libx264 -vf fps=25 -pix_fmt yuv420p pca_movie.mp4
 ```
+[[download .mp4](https://github.com/jehyunlee/code-snippet/raw/master/2_matplotlib/ani_rotation/pca_movie.mp4)]
