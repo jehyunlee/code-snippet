@@ -22,6 +22,7 @@ for ii in range(0,360,1):
     ax.view_init(elev=10., azim=ii)
     plt.savefig("./images/pca_movie%d.png" % ii)
 ```
+![png](/2_matplotlib/ani_rotation/images/pca_movie0.png)
 
 * create .mp4 file from the images  
 
