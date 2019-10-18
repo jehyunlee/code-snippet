@@ -32,7 +32,7 @@ Below are the list of them with proper links.
 2.4. Colors and Colormaps [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/colors/colors_and_maps.md'>Link</a>]  
 2.5. Add color function [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/add_color/add_color.md'>Link</a>]  
 2.6. Violin plot with Raw data [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/violin_raw/violin_raw.md#322-violin-plot-with-scatter--line-plot--raw-data'>Link</a>], subplot control with `gridspec` [<a href='https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/violin_raw/violin_raw.md#321-violin-plot-hysteresis-on-and-off'>Link</a>]  
-2.7. 3D Rotation [[Link](https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/ani_rotation/ani_rotation.md)]  
+2.7. 3D Rotation animation, using `ax.view_init` and `ffmpeg` [[Link](https://github.com/jehyunlee/code-snippet/blob/master/2_matplotlib/ani_rotation/ani_rotation.md)]  
   
 3. data analysis with `pandas`.  
 3.1. Nice representation of `pandas DataFrame` to `markdown` [<a href='https://github.com/jehyunlee/code-snippet/blob/master/3_pandas/df2md/df2md.md'>Link</a>]  
