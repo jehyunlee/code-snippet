@@ -24,7 +24,7 @@
   * `-it` (**i**nteractive, pseudo-**t**ty): 실행된 `bash` shell에 입력 및 출력 가능  
   * `-d`': 컨테이너를 백그라운드에서 계속 실행하기 
   * `-v` : 호스트와 디렉터리 공유.  
-     + ex) `-v /root/data`: 호스트의 /root/data 를 Docker 컨테이너의 /data에 연결함.  
+     + ex) `-v /root/data:/data`: 호스트의 /root/data 를 Docker 컨테이너의 /data에 연결함.  
   * `--rm` (**r**e**m**ove): 실행 후 컨테이너 삭제 
   * `--name [컨테이너이름]` : 컨테이너 이름 지정  
   
