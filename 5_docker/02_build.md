@@ -38,7 +38,7 @@ EXPOSE 443
 * WORKDIR: CMD에서 설정한 실행 파일이 실행될 디렉토리.  
 * EXPOSE: 호스트와 연결할 포트.  
 
-#### 06. Dockerfile Build: 이미지 생성
+#### 06. `build`: 이미지 생성
 - directory 밖에서 build 실행.  
 ```bash
 $ docker build example --tag hello:0.1.
@@ -51,7 +51,8 @@ $ docker build example --tag hello:0.1.
 $ docker images
 ```
 
-- 방금 만든 `hello:0.1` 이미지 실행.  
+#### 07. `run`: 컨테이너 실행
+- 방금 만든 `hello:0.1` 이미지를 컨테이너에 실어서 실행.  
 ```bash
 $ docker run --name hello-nginx -d -p 80:80 -v /root/data:/data hello:0.1
 ```
@@ -60,5 +61,10 @@ $ docker run --name hello-nginx -d -p 80:80 -v /root/data:/data hello:0.1
   * `http:[호스트IP]:80`을 웹브라우저에 입력하면 컨테이너의 80번 포트로 접속됨.  
   * `[호스트IP]`를 알아내기 위해서는 docker에서 `$ docker-machine ip`를 실행. 기본값은 `192.168.99.100`.  
   * 또는, `Kimanetic`의 `Web Preview`에 작게 출력된 화면을 클릭하면 웹브라우저로 열기가 실행됨.  
-  
+
+- 실행된 컨테이너 목록을 
+```bash
+$ docker ps
+```
+
 
