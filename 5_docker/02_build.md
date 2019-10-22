@@ -61,10 +61,29 @@ $ docker run --name hello-nginx -d -p 80:80 -v /root/data:/data hello:0.1
   * `http:[호스트IP]:80`을 웹브라우저에 입력하면 컨테이너의 80번 포트로 접속됨.  
   * `[호스트IP]`를 알아내기 위해서는 docker에서 `$ docker-machine ip`를 실행. 기본값은 `192.168.99.100`.  
   * 또는, `Kimanetic`의 `Web Preview`에 작게 출력된 화면을 클릭하면 웹브라우저로 열기가 실행됨.  
+* `exit`를 입력하면 컨테이너가 정지(`stop`)되고 컨테이너에서 빠져나옴.
+  * `Ctrl+P`, `Ctrl+Q`를 차례대로 입력하면 컨테이너를 정지하지 않고 빠져나옴.
 
 #### 08. `ps`: 실행된 컨테이너 목록 확인
 ```bash
 $ docker ps
 ```
 
+#### 09. `start`: 컨테이너 시작하기
+* `docker start [컨테이너 이름]` 형식.  
+* 컨테이너 이름 대신 컨테이너 ID를 사용해도 됨.  
+```bash
+$ docker start hello
+```
+
+#### 10. `restart`: 컨테이너 재시작 
+* `docker restart [컨테이너 이름]` 형식. 
+* 컨테이너 이름 대신 컨테이너 ID를 사용해도 됨. 
+* OS 재부팅과 같음.
+```bash
+$ docker restart hello
+```
+
+#### 11. `attach`: 컨테이너 접속
+* `docker attach [컨테이너 이름]` 형식.  
 
