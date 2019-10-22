@@ -62,7 +62,7 @@ $ docker run --name hello-nginx -d -p 80:80 -v /root/data:/data hello:0.1
   * `[호스트IP]`를 알아내기 위해서는 docker에서 `$ docker-machine ip`를 실행. 기본값은 `192.168.99.100`.  
   * 또는, `Kimanetic`의 `Web Preview`에 작게 출력된 화면을 클릭하면 웹브라우저로 열기가 실행됨.  
 
-- 실행된 컨테이너 목록을 
+### 08. `ps`: 실행된 컨테이너 목록 확인
 ```bash
 $ docker ps
 ```
