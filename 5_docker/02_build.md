@@ -86,4 +86,37 @@ $ docker restart hello
 
 #### 11. `attach`: 컨테이너 접속
 * `docker attach [컨테이너 이름]` 형식.  
+* 앞에서 `/bin/bash`를 실행했기 때문에 명령어 입력이 가능하지만 다른 어플리케이션 실행시 입력 불가하기도 함.
+```bash
+$ docker attach hello
+```
+* `exit`를 입력하면 컨테이너가 정지(`stop`)되고 컨테이너에서 빠져나옴.
+  * `Ctrl+P`, `Ctrl+Q`를 차례대로 입력하면 컨테이너를 정지하지 않고 빠져나옴.  
+  
+#### 12. `exec`: 외부에서 컨테이너 명령 실행
+* `docker exec [컨테이너 이름] [명령] [매개 변수]` 형식.  
+* 컨테이너가 실행되고 있는 상태에서만 사용 가능하며 정지된 상태에서는 사용할 수 없음.
+```bash
+$ docker exec hello echo "Hello World"
+```
+* 실행중인 컨테이너에 `apt-get`, `yum`등의 명령어로 패키지를 설치하거나 각종 데몬을 실행할 때 활용 가능.  
+
+#### 13. `stop`: 컨테이너 정지
+* `docker stop [컨테이너 이름]` 형식.  
+```bash
+$ docker stop hello
+```
+
+#### 14. `rm`: 컨테이너 삭제
+* `docker rm [컨테이너 이름]` 형식.  
+```bash
+$ docker rm hello
+```
+
+#### 15. `rmi`: 이미지 삭제
+* `docker rmi [이미지 이름]` 형식.  
+* `docker rmi ubuntu` 처럼 이미지 이름만 지정하면 **태그**는 다르지만 **이름**이 같은 모든 이미지가 삭제됨.
+```bash
+$ docker rmi ubuntu:latest
+```
 
