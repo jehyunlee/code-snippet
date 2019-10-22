@@ -49,3 +49,5 @@ Below are the list of them with proper links.
 
 6. `docker`  
 6.1. Basic commands [[Link](https://github.com/jehyunlee/code-snippet/blob/master/5_docker/01_basic.md)]  
+6.2. Build and Run commands [[Link](https://github.com/jehyunlee/code-snippet/blob/master/5_docker/02_build.md)]  
+6.3. Inspect commands [[Link](https://github.com/jehyunlee/code-snippet/blob/master/5_docker/03_inspect.md)]  
