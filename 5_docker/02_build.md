@@ -15,7 +15,7 @@ FROM ubuntu:16.04
 MAINTAINER Jehyun Lee <jehyun.lee@gmail.com>
 
 RUN apt-get update
-RUN apt-get install -y nginx
+RUN apt-get install --allow-unauthenticated -y nginx
 RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
 RUN chown -R www-data:www-data /var/lib/enginx
 
@@ -39,7 +39,19 @@ EXPOSE 443
 * EXPOSE: 호스트와 연결할 포트.  
 
 #### 06. Dockerfile Build: 이미지 생성
-- directory 밖에서 build 실행
+- directory 밖에서 build 실행.  
 ```bash
 $ docker build example --tag hello:0.1.
+```
+- `docker build [옵션] [dockerfile 경로]` 형식.  
+  - `--tag`형식으로 `[이미지이름]:[태그]` 설정 가능. `[이미지이름]`만 하면 `[태그]`는 자동으로 `latest`로 설정됨.  
+
+- 이미지 목록 출력.  
+```bash
+$ docker images
+```
+
+- 방금 만든 `hello:0.1` 이미지 실행.  
+```bash
+$ docker run --name hello-nginx -d -p 80:80 -v /root/data:/data hello:0.1
 ```
