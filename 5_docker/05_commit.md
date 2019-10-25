@@ -21,7 +21,7 @@ $ export DOCKER_ID_USER="jehyunlee"
 
 3. docker image 태그 달기
 ```bash
-$ docker tag ubuntu-driver $DOCKER_ID_USER/ubuntu-cpp-driver
+$ docker tag ubuntu-cpp-driver $DOCKER_ID_USER/ubuntu-cpp-driver
 ```
 
 4. Tag가 적용된 Image를 docker cloud에 push
