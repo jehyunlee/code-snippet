@@ -48,8 +48,10 @@ Below are the list of them with proper links.
 5.1. Read metadata from `.dm3`(TEM) and `.tif`(SEM), then export to `.jpg`. [[Link](https://github.com/jehyunlee/image_processing/blob/master/meta2jpg/dm3_to_metajpg_190625.md)]
 
 6. `docker`  
+6.1. Installation of `docker` on `windows 10 home` [[Link](https://github.com/jehyunlee/docker/blob/master/Win10Home/text.md)]  
 6.1. Basic commands [[Link](https://github.com/jehyunlee/code-snippet/blob/master/5_docker/01_basic.md)]  
 6.2. Build and Run commands [[Link](https://github.com/jehyunlee/code-snippet/blob/master/5_docker/02_build.md)]  
 6.3. Inspect commands [[Link](https://github.com/jehyunlee/code-snippet/blob/master/5_docker/03_inspect.md)]  
 6.4. User account settings [[Link](https://github.com/jehyunlee/code-snippet/blob/master/5_docker/04_account.md)]  
 6.5. Commit and Push [[Link](https://github.com/jehyunlee/code-snippet/blob/master/5_docker/05_commit.md)]  
+
