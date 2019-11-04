@@ -1,7 +1,7 @@
 
 #### Visualization of pd.DataFrame as a Markdown format
 * Useful to generate markdown document
-
+* **[ NOTICE ]** the output of the function is strongly influenced by `markdown` characters, such as `|`, `*`, `~`. The output of the `df2md` should be used only for **visualization**, not as input to another function.  
 
 ```python
 # Nice representation of dataframe in markdown
@@ -12,6 +12,7 @@ import warnings
 warnings.filterwarnings(action='ignore')
 
 def df2md(df, maxlen=20):
+    print('### NOTICE: The following table maybe manipulated by markdown characters in dataset. Please be careful for usage.')
     _df = copy.deepcopy(df)
     
     for col in _df.columns:
