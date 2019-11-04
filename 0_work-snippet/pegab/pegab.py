@@ -88,6 +88,7 @@ print("# Seaborn Figure Style : {}, {}, {}".format(style, palette, context))
 #>>>>>> 3. Nice Representation of dataframe in markdown
 
 def df2md(df, maxlen=20):
+    print('### NOTICE: The following table maybe manipulated by markdown characters in dataset. Please be careful for usage.')
     _df = copy.deepcopy(df)
     
     for col in _df.columns:
