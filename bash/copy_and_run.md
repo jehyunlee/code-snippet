@@ -1,6 +1,6 @@
 ### Function of example `bash` shell
 
-* [chk_seq.sh]()
+* [chk_seq.sh](https://github.com/jehyunlee/code-snippet/blob/master/bash/chk_seq.sh)
     ```bash
     #!/bin/bash
     
