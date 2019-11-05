@@ -4,17 +4,21 @@ Some of them are open-sourced, and some are self-written.
 Below are the list of them with proper links.
 
 0. Work-snippet, a subset of `Code-snippet`  
-0.0. Readme [[Link](https://github.com/jehyunlee/code-snippet/blob/master/0_work-snippet/Readme.md)]  
-0.1. `base` : Korean Font + Figure Style + df2md() [[Download](https://github.com/jehyunlee/code-snippet/blob/master/0_work-snippet/pegab/pegab.py)]   
+  0.0. Readme [[Link](https://github.com/jehyunlee/code-snippet/blob/master/0_work-snippet/Readme.md)]  
+  0.1. `base` : Korean Font + Figure Style + df2md() [[Download](https://github.com/jehyunlee/code-snippet/blob/master/0_work-snippet/pegab/pegab.py)]  
+
+1. `bash` shell script  
+  1.1. basic syntax of `bash` shell  [[Link](http://pyrasis.com/book/DockerForTheReallyImpatient/Chapter04)] 
+  1.2. copy and run multiple shells using `nohup` [[Link]()] 
   
 2. geocoding with `folium`, `geopandas` and `geojson`  
-2.1. interactive geocoding with `folium` [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/190712_folium_geojson.md'>Link</a>]  
-2.2. displaying data on map with administrative borders[<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/geopandas/data_on_map/190914_DaejeonMap.md'>Link</a>]  
-   * html2png [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/geopandas/data_on_map/190914_DaejeonMap.md#12-function-capture-html-to-png'>Link</a>]   
-   * read JSON from web [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/geopandas/data_on_map/190914_DaejeonMap.md#221-function--load-json-from-web'>Link</a>]  
-   * data validation (duplicated & missing ones) [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/geopandas/data_on_map/190914_DaejeonMap.md#223-data-validataion'>Link</a>]  
-   * map + admin. districts + data visualization with legend as independent `png` file [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/geopandas/data_on_map/190914_DaejeonMap.md#33-function--map--admistrative-districts--data--customized-colormap'>Link</a>]  
-   
+  2.1. interactive geocoding with `folium` [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/190712_folium_geojson.md'>Link</a>]  
+  2.2. displaying data on map with administrative borders[<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/geopandas/data_on_map/190914_DaejeonMap.md'>Link</a>]  
+    * html2png [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/geopandas/data_on_map/190914_DaejeonMap.md#12-function-capture-html-to-png'>Link</a>]   
+    * read JSON from web [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/geopandas/data_on_map/190914_DaejeonMap.md#221-function--load-json-from-web'>Link</a>]  
+    * data validation (duplicated & missing ones) [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/geopandas/data_on_map/190914_DaejeonMap.md#223-data-validataion'>Link</a>]  
+    * map + admin. districts + data visualization with legend as independent `png` file [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/geopandas/data_on_map/190914_DaejeonMap.md#33-function--map--admistrative-districts--data--customized-colormap'>Link</a>]     
+
     2.3. tips of `geopandas` from Pycon 2019 tutorial [<a href='https://www.notion.so/rollinstar/Python-cc8a370daf784bf9b084ca06a37c5a1e'>Lecture Link</a>][<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/geopandas/pycon2019tutorial/1/lecture1.md'>1</a>][<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/geopandas/pycon2019tutorial/2-1/lecture2-1.md'>2-1</a>][<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/geopandas/pycon2019tutorial/2-2/lecture2-2.md'>2-2</a>]  
     * Korean font problem : try another encoding [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/geopandas/pycon2019tutorial/1/lecture1.md#tip-%ED%95%9C%EA%B8%80%EC%9D%B4-%EA%B9%A8%EC%A7%88-%EA%B2%BD%EC%9A%B0-gpdread_file%EC%9D%98-encoding-%EC%98%B5%EC%85%98-%EB%B3%80%EA%B2%BD'>Link</a>]
     * Reading `geometry` data as text [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/geopandas/pycon2019tutorial/1/lecture1.md#tip-geometry%EC%9D%98-%ED%98%95%EC%83%81%EC%9D%B4-%EC%95%84%EB%8B%8C-%EA%B0%92%EC%9D%84-%ED%99%95%EC%9D%B8%ED%95%98%EA%B3%A0-%EC%8B%B6%EC%9C%BC%EB%A9%B4-%EB%B2%94%EC%9C%84%EB%A1%9C-%ED%98%B8%EC%B6%9C'>Link</a>]
