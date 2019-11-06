@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import os
+import os, copy
 from IPython.display import Markdown, display
 
 sns.set(style='whitegrid')
