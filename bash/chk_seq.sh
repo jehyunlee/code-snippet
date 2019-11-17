@@ -1,6 +1,7 @@
 #!/bin/bash
 
 SET=$(seq 0 25)
+
 for i in $SET
 do
   cp nohup_run.sh nohup_run_$i.sh
