@@ -87,8 +87,7 @@ print("# Seaborn Figure Style : {}, {}, {}".format(style, palette, context))
 
 #>>>>>> 3. Nice Representation of dataframe in markdown
 
-def df2md(df, maxlen=20):
-    print('### NOTICE: The following table maybe manipulated by markdown characters in dataset. Please be careful for usage.')
+def df2md(df, maxlen=20, indexname='(index)'):
     _df = copy.deepcopy(df)
     
     for col in _df.columns:
@@ -96,16 +95,19 @@ def df2md(df, maxlen=20):
         if (_df[col].str.len()> maxlen).any() :
             _df[col].loc[_df[col].str.len() > maxlen] = _df[col].str.slice(stop=maxlen) + ' ...'
 
-    if '(index)' not in _df.columns:
-        _df.insert(0, '(index)', df.index)
-        
+    if indexname in _df.columns:
+        while(indexname in _df.columns):
+            indexname='_'+indexname
+        warnings.warn("The index name shouldn't overlap other column names. {} will be used instead.\nConsider changing the indexname parameter.".format(indexname), SyntaxWarning)
+    _df.insert(0, indexname, df.index)
+    
     fmt = ['---' for i in range(len(_df.columns))]
     df_fmt = pd.DataFrame([fmt], columns=_df.columns)
     df_formatted = pd.concat([df_fmt, _df])
-    display(Markdown(df_formatted.to_csv(sep="|", index=False)))
-    _df.drop(columns='(index)', axis=1, inplace=True)
+    display(Markdown(df_formatted.to_csv(sep='|', index=False)))
+    _df.drop(columns=indexname, axis=1, inplace=True)
 
-print("# Function : {} is available!".format('df2md()'))
+    print("# Function : {} is available!".format('df2md()'))
 
 #<<<<<< 3. Nice Representation of dataframe in markdown
     
