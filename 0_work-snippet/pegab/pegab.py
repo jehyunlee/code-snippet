@@ -107,7 +107,7 @@ def df2md(df, maxlen=20, indexname='(index)'):
     display(Markdown(df_formatted.to_csv(sep='|', index=False)))
     _df.drop(columns=indexname, axis=1, inplace=True)
 
-    print("# Function : {} is available!".format('df2md()'))
+print("# Function : {} is available!".format('df2md()'))
 
 #<<<<<< 3. Nice Representation of dataframe in markdown
     
