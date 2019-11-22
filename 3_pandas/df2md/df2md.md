@@ -12,8 +12,24 @@ import warnings
 warnings.filterwarnings(action='ignore')
 
 def df2md(df, maxlen=20, indexname='(index)'):
+    '''
+    Nice Representation of Pandas DataFrame and Series in Markdown Format.
+    
+    Parameters
+    ----------------
+    df : pandas.DataFrame or pandas.Series
+    maxlen : (int) maximum length of data at markdown output.
+             data exceeding maxlen will be presented as ' ...'
+    indexname : (str) name of index, to be displayed on markdown output.
+                To avoid overriding column name, if conflicts, the '_' will be added in front of the indexname.
+    '''
+    
     _df = copy.deepcopy(df)
     
+    if 'Series' in str(type(df)):
+      _idx = _df.index
+      _df = pd.DataFrame(data=_df, index=_idx)
+      
     for col in _df.columns:
         _df[col] = _df[col].astype('str')
         if (_df[col].str.len()> maxlen).any() :
@@ -24,7 +40,7 @@ def df2md(df, maxlen=20, indexname='(index)'):
             indexname='_'+indexname
         warnings.warn("The index name shouldn't overlap other column names. {} will be used instead.\nConsider changing the indexname parameter.".format(indexname), SyntaxWarning)
     _df.insert(0, indexname, df.index)
-    
+
     fmt = ['---' for i in range(len(_df.columns))]
     df_fmt = pd.DataFrame([fmt], columns=_df.columns)
     df_formatted = pd.concat([df_fmt, _df])
