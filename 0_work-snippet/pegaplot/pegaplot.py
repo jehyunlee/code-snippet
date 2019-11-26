@@ -14,10 +14,6 @@ sns.set(font_scale=1)
 #>>>>>> 1. Korean Font Setting
 import platform
 system = platform.system()
-
-# -*- coding: UTF-8 -*-
-get_ipython().run_line_magic('matplotlib', 'inline')
-
 import matplotlib as mpl  # 기본 설정 만지는 용도
 import matplotlib.pyplot as plt  # 그래프 그리는 용도
 import matplotlib.font_manager as fm  # 폰트 관련 용도
