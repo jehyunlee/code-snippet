@@ -3,7 +3,6 @@
 
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import seaborn as sns
 import os, copy
 from IPython.display import Markdown, display
@@ -84,9 +83,6 @@ print("# Seaborn Figure Style : {}, {}, {}".format(style, palette, context))
 #>>>>>> 3. Nice Representation of dataframe in markdown
 
 # Nice representation of dataframe in markdown
-import pandas as pd
-import copy
-from IPython.display import Markdown, display
 import warnings
 warnings.filterwarnings(action='ignore')
 
