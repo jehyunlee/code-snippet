@@ -9,7 +9,7 @@ Below are the list of them with proper links.
 
 1. `bash` shell script  
   1.1. basic syntax of `bash` shell  [[Link](http://pyrasis.com/book/DockerForTheReallyImpatient/Chapter04)]    
-  1.2. copy and run multiple shells using `nohup` [[Link]()] 
+  1.2. copy and run multiple shells using `nohup` [[Link](https://github.com/jehyunlee/code-snippet/blob/master/bash/copy_and_run.md)] 
   
 2. geocoding with `folium`, `geopandas` and `geojson`  
   2.1. interactive geocoding with `folium` [<a href='https://github.com/jehyunlee/code-snippet/blob/master/1_folium_geojson/190712_folium_geojson.md'>Link</a>]  
