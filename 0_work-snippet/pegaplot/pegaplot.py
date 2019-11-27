@@ -1,16 +1,20 @@
 #!/usr/bin/env python
 # coding: utf-8
+# ver. 2019.11.28.
+# Jehyun Lee (jehyun.lee@gmail.com)
 
 import numpy as np
 import pandas as pd
 import seaborn as sns
-import os, copy
+import os, copy, sys
 from IPython.display import Markdown, display
+import matplotlib.colors as mcolors
+from matplotlib import gridspec
 
 sns.set(style='whitegrid')
 sns.set(font_scale=1)
 
-#>>>>>> 1. Korean Font Setting
+#>>>>>> Korean Font Setting
 import platform
 system = platform.system()
 
@@ -64,12 +68,11 @@ elif system == 'Linux':
     print("# matplotlib 한글 사용 가능")
 
 else:
-    print('# Sorry, my code has compatibility with Windows and Linux only.')
-    exit(0)
+    sys.exit('ERROR: Sorry, my code has compatibility with Windows and Linux only.')
 
-#<<<<<< 1. Korean Font Setting
+#<<<<<< Korean Font Setting
 
-#>>>>>> 2.Figure Style Setting
+#>>>>>> Figure Style Setting
 style = 'whitegrid'
 palette = 'muted'
 context = 'talk'
@@ -128,31 +131,53 @@ def df2md(df, maxlen=20, indexname='(index)'):
 
 print("# Available Functions : {}".format('df2md(), bar(), pie(), donut(), dist(), dists(), scatter()'))
 
-#<<<<<< 3. Nice Representation of dataframe in markdown
+#<<<<<< Nice Representation of dataframe in markdown
 
-# images directory check and make
+#>>>>>> images directory check and make if not
 try:
     if not(os.path.isdir('./images')):
         os.makedirs(os.path.join('./images'))
+        print('# Directory created : ./images')
 except OSError as e:
     if e.errno != errno.EEXIST:
         print("Failed to create directory!!!!!")
         raise
+        
+#<<<<<< images directory check and make if not
 
+#>>>>>> list colors in matplotlib
+colorlist = {}
+colorlist.update(mcolors.BASE_COLORS)
+colorlist.update(mcolors.TABLEAU_COLORS)
+colorlist.update(mcolors.CSS4_COLORS)
 
+colornames = []
+colorcodes = []
+for name, color in colorlist.items():
+    colornames.append(name)
+    colorcodes.append(color)
 
-# Fonts settings
+#<<<<<< list colors in matplotlib
+    
+
+#>>>>>> Fonts settings
+# suptitle
 fontsuptitle=mpl.font_manager.FontProperties()
 fontsuptitle.set_weight('bold')
 fontsuptitle.set_size(24)
 
+#<<<<<< Fonts settings
+
+#>>>>>> Utilities
 # Retrieving Variable Name
-def namestr(x, Vars=vars()):
-    for k in Vars:
-        if type(x) == type(Vars[k]):
-            if x is Vars[k]:
-                return k
-    return None
+import traceback
+
+def namestr(*expr):
+    (filename,line_number,function_name,text)=traceback.extract_stack()[-2]
+    begin=text.find('namestr(')+len('namestr(')
+    end=text.find(')',begin)
+    text=[name.strip() for name in text[begin:end].split(',')]
+    return text[0]
   
 # Check type of variable
 def chktype(var, typename):
@@ -161,8 +186,11 @@ def chktype(var, typename):
     else:
         return False
 
-#>>>>>> 4. Categorical Data Distribution      
-# bar plot      
+#<<<<<< Utilities
+
+#>>>>>> Plots     
+# bar plot
+# @namestr
 def bar(df, xcols, ycol, labels=None, gap=10):
     """
     Categorical Data Distribution as Barplot
@@ -183,20 +211,38 @@ def bar(df, xcols, ycol, labels=None, gap=10):
 
         plt.figure(figsize=(6, 6))
         ax = sns.barplot(x=xcol, y=ycol, data=grouped)
-        ax.set(title=labels[xcol])
-        ax.set(xlabel=None)
-        ax.set(ylabel=None)
+        
+        # adjusting ylims to bare numbers
+        #- find min, max values of the bars
+        xys = np.array([h.xy for h in ax.patches])
+        y0min = xys[:,1].min()
+        y0max = xys[:,1].max()        
+        
+        #- setting the graph ylims
+        ymin, ymax = ax.get_ylim()
+        if gap > 0:
+            ymax += gap
+        if y0max + gap < ymin:
+            ymin += gap
+        ax.set_ylim(ymin, ymax)
+        
+        #- add data on bar
+        fontsize = 16
         for i in ax.patches:
             ax.text(
                 i.get_x() + i.get_width() / 2,
-                i.get_height() + gap,
+                i.get_height() + gap + fontsize,
                 str(int(i.get_height())),
                 ha="center",
-                fontsize=16
+                fontsize=fontsize
             )
 
+        ax.set(title=labels[xcol])
+        ax.set(xlabel=None)
+        ax.set(ylabel=None)
+        
         plt.tight_layout()
-        df_name = namestr(df)#, locals())
+        df_name = namestr(df)
         plt.savefig("./images/cat_bar_{}_{}.png".format(df_name, labels[xcol]))
 
     # if labels == None
@@ -210,17 +256,11 @@ def bar(df, xcols, ycol, labels=None, gap=10):
             if chktype(df[xcol], "Series"):
                 _plot(xcol)
             else:
-                print(
-                    "ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name"
-                )
-                exit(1)
+                sys.exit("ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name")
     elif chktype(df[xcols], "Series"):
         _plot(xcols)
     else:
-        print(
-            "ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)"
-        )
-        exit(1)
+        sys.exit("ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)")
         
         
 def calc_abs(pct, data_array: list):
@@ -294,17 +334,11 @@ def pie(
             if chktype(df[xcol], "Series"):
                 _plot(xcol)
             else:
-                print(
-                    "ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name"
-                )
-                exit(1)
+                sys.exit("ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name")
     elif chktype(df[xcols], "Series"):
         _plot(xcols)
     else:
-        print(
-            "ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)"
-        )
-        exit(1)
+        sys.exit("ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)")
         
 
 # Donut Chart        
@@ -418,21 +452,13 @@ def donut(
             if chktype(df[xcol], "Series"):
                 _plot(xcol)
             else:
-                print(
-                    "ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name"
-                )
-                exit(1)
+                sys.exit("ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name")
     elif chktype(df[xcols], "Series"):
         _plot(xcols)
     else:
-        print(
-            "ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)"
-        )
-        exit(1)
-#<<<<<< 4. Categorical Data Distribution        
+        sys.exit("ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)")
 
-
-#>>>>>> 5. Numerical Data Distribution
+# Numerical data distribution
 def dist(
     df,
     xcols,
@@ -531,19 +557,13 @@ def dist(
             if chktype(df[xcol], "Series"):
                 _plot(xcol)
             else:
-                print(
-                    "ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name"
-                )
-                exit(1)
+                sys.exit("ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name")
     elif chktype(df[xcols], "Series"):
         _plot(xcols)
     else:
-        print(
-            "ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)"
-        )
-        exit(1)
+        sys.exit("ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)")
         
-
+# Numerical data distributions, comparing multiple dataframe
 def dists(
     dfs,
     xcols,
@@ -557,7 +577,7 @@ def dists(
     **kwargs
 ):
     """
-    Numerical Data Distributions as historam
+    Numerical Data Distributions as historam, comparing multiple DataFrame
     
     Parameters
     ----------------
@@ -649,7 +669,6 @@ def dists(
             ylog=False,
             **kwargs
         )
-        exit(1)
     elif chktype(xcols, "list") or chktype(xcols, "ndarray"):
         if chktype(dfs, "list") or chktype(dfs, "ndarray"):
             ### 모든 df에 대해 df[xcol]이 "Series"일때만 _plot(xcol) 실행
@@ -658,60 +677,31 @@ def dists(
             for df in dfs:
                 for xcol in xcols:
                     if not chktype(df[xcol], "Series"):
-                        print(
-                            "ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name.\n \
+                        sys.exit("ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name.\n \
                                     `{}` in `{}` raised error.".format(
                                 col, namestr(df)
-                            )
-                        )
-                        exit(1)
+                            ))
 
             for xcol in xcols:
                 for df in dfs:
                     if chktype(df[xcol], "Series"):
                         _plot(df, xcol)
                     else:
-                        print(
-                            "ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name"
-                        )
-                        exit(1)
+                        sys.exit("ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name")
         else:
-            print(
-                "ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)"
-            )
-            exit(1)
+            sys.exit("ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)")
     else:
         for df in dfs:
             if not chktype(df[xcols], "Series"):
-                print(
-                    "ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name"
-                )
-                exit(1)
+                sys.exit("ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name")
         for df in dfs:
             if chktype(df[xcols], "Series"):
                 _plot(df, xcols)
             else:
-                print(
-                    "ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name"
-                )
-                exit(1)
+                sys.exit("ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name")
                 
                 
-#>>>>>> Scatter plots
-import matplotlib.colors as mcolors
-from matplotlib import gridspec
-
-colorlist = {}
-colorlist.update(mcolors.BASE_COLORS)
-colorlist.update(mcolors.TABLEAU_COLORS)
-colorlist.update(mcolors.CSS4_COLORS)
-
-colornames = []
-colorcodes = []
-for name, color in colorlist.items():
-  colornames.append(name)
-  colorcodes.append(color)
-
+# Scatter plots
 def find_optdim(ncol, aspect_target=9 / 16, addcol=True):
     def _find_optdim(ncol, aspect_target, opt):
         for h in range(1, int(ncol / 2)):
@@ -747,23 +737,55 @@ def scatter(
     df,
     xcols,
     ycol,
-    ncols=None,  # if None, ncols and nrows are given by `find_optdim`.
-    # if specified, nrows are calculated with a few dummies
-    ccol=None,  # column name. if None, default color (blue?)
+    ncols=None, 
     aspect_target=9 / 16, 
     addcol=True,
+    ccol='blue',  # column name. if None, default color (blue?)
+    cmap='jet',
     cmin=None,  # vmin
     cmax=None,  # vmax
-    size=1,    # scatter plot size
-    labels=None,
-    suptitle_aux=None,  # suptitle
+    size=1,  # scatter plot size
+    alpha=0.3,  # opacity of scatters
     figid=True,  # figure id (a), (b), (c), ...
-    yrange=None,  # None or [min, max]
-    alpha=0.1,  # opacity of scatters
+    ylims=None,  # None or [min, max]
     xlog=False,
     ylog=False,
+    labels=None,
+    suptitle_aux=None,  # suptitle
     filename=None,
 ):
+    """
+    Data Distribution as scatter plot
+    
+    Parameters
+    ----------------
+    df : pandas.DataFrame
+    xcols : (list, numpy.ndarray or str) column name(s) of pandas.DataFrame.
+    ycol : (str) target column name 
+    
+    ncols : (int) number of columns of the figure
+    aspect_target : (float) aspect ratio of the figure (default=16:9)
+    addcol : (Boolean)
+    
+    ccol : (str) column name or Matplotlib color name.
+    cmap : (str) Matplotlib color name. Valid only if ccol is a column name.
+    cmin : (float) minimum value of the scatter colormap
+    cmax : (float) maximum value of the scatter colormap
+    size : (float) scatter size
+    alpha : (float) scatter opacity
+    
+    figid : (Boolean) figure id, such as (a), (b), ...
+    ylims : (list) range of y values on graph. [ymin, ymax]
+    xlog : (Boolean) set x-scale as log.
+    ylog : (Boolean) set y-scale as log.
+    
+    labels : (dict) label names to be displayed on graph.
+             if None, column name will be displayed.
+    suptitle_aux : (str) auxiliary text on suptitle
+    filename : (str) filename to be added after DataFrame name. 
+                     the filename will be './images/scatter_{DataFrame_name}_{filename}.png'
+                     if None, all `xcols` will be enlisted.
+    """
 
     # figure dimension decision
     nxcols = len(xcols)
@@ -777,7 +799,7 @@ def scatter(
             ncols, nrows, dummy
         )
     )
-    
+
     # figure preparation
     fig, axes = plt.subplots(
         ncols=ncols,
@@ -786,15 +808,23 @@ def scatter(
         sharey=True,
         gridspec_kw={"wspace": 0.03, "hspace": 0.3},
     )
-    
+
     # scatter colors
-    if ccol == None:
-      scatter_color = 'blue'
-    elif chktype(df[ccol], 'Series'):
-      scatter_color = df[ccol]
-    elif ccol in colornames:  ### fix here
-      scatter_color = ccol
-      
+    errorflag = 0
+    try:
+        if chktype(df[ccol], "Series"):
+            scatter_color = df[ccol]
+        else:
+            errorflag = 1
+    except:
+        if ccol in colornames:
+            scatter_color = ccol
+        else:
+            errorflag = 1
+            
+    if errorflag == 1:
+        sys.exit("ERROR: `ccol` should be a color name or column name in DataFrame")
+
     # x labels
     if labels == None:
         _labels = _cols = df.columns
@@ -808,7 +838,7 @@ def scatter(
                 x=df[xcols[i]],
                 y=df[ycol],
                 c=scatter_color,
-                cmap="jet",
+                cmap=cmap,
                 alpha=alpha,
                 s=size,
                 vmin=cmin,
@@ -824,7 +854,8 @@ def scatter(
             )
             if figid == True:
                 ax.text(
-                    0.02, 0.98,
+                    0.02,
+                    0.98,
                     "({})".format(chr(ord("a") + i)),
                     transform=ax.transAxes,
                     fontsize=20,
@@ -833,22 +864,21 @@ def scatter(
             ax.set_xlabel(labels[xcols[i]])
             ax.set_ylabel("")
 
-            if yrange != None:
-                ymin = yrange[0]
-                ymax = yrange[1]
+            if ylims != None:
+                ymin = ylims[0]
+                ymax = ylims[1]
                 ax.set_ylim(ymin, ymax)
 
             i += 1
-            
+
             if xlog == True:
-                ax.set_xscale('log')
+                ax.set_xscale("log")
                 for tick in ax.get_xticklabels():
                     tick.set_fontname("Liberation Sans")
             if ylog == True:
-                ax.set_yscale('log')
+                ax.set_yscale("log")
                 for tick in ax.get_yticklabels():
                     tick.set_fontname("Liberation Sans")
-
 
     if suptitle_aux == None:
         suptitle = labels[ycol]
@@ -857,10 +887,10 @@ def scatter(
     plt.suptitle(suptitle, fontproperties=fontsuptitle)
 
     plt.tight_layout()
-    
+
     df_name = namestr(df)
     if filename == None:
-        filename = ''
+        filename = ""
         for xcol in xcols:
-          filename += xcol
+            filename += xcol
     plt.savefig("./images/scatter_{}_{}.png".format(df_name, filename))
