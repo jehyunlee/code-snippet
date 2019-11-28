@@ -128,6 +128,7 @@ def df2md(df, maxlen=20, indexname='(index)'):
     df_formatted = pd.concat([df_fmt, _df])
     display(Markdown(df_formatted.to_csv(sep='|', index=False)))
     _df.drop(columns=indexname, axis=1, inplace=True)
+    del _df
 
 print("# Available Functions : {}".format('df2md(), bar(), pie(), donut(), dist(), dists(), scatter()'))
 
@@ -212,6 +213,9 @@ def bar(df, xcols, ycol, labels=None, gap=10):
         plt.figure(figsize=(6, 6))
         ax = sns.barplot(x=xcol, y=ycol, data=grouped)
         
+        # fontsize of the data number
+        fontsize = 16
+          
         # adjusting ylims to bare numbers
         #- find min, max values of the bars
         xys = np.array([h.xy for h in ax.patches])
@@ -221,17 +225,16 @@ def bar(df, xcols, ycol, labels=None, gap=10):
         #- setting the graph ylims
         ymin, ymax = ax.get_ylim()
         if gap > 0:
-            ymax += gap
+            ymax += gap + fontsize
         if y0max + gap < ymin:
             ymin += gap
         ax.set_ylim(ymin, ymax)
         
         #- add data on bar
-        fontsize = 16
         for i in ax.patches:
             ax.text(
                 i.get_x() + i.get_width() / 2,
-                i.get_height() + gap + fontsize,
+                i.get_height() + gap,
                 str(int(i.get_height())),
                 ha="center",
                 fontsize=fontsize
