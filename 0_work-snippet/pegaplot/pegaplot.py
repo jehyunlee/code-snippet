@@ -3,6 +3,12 @@
 # ver. 2019.11.28.
 # Jehyun Lee (jehyun.lee@gmail.com)
 
+SEABORN_STYLE = 'whitegrid'
+SEABORN_PALETTE = 'muted'
+SEABORN_CONTEXT = 'talk'
+
+#-------------------------------------------------------------
+
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -11,7 +17,6 @@ from IPython.display import Markdown, display
 import matplotlib.colors as mcolors
 from matplotlib import gridspec
 
-sns.set(style='whitegrid')
 sns.set(font_scale=1)
 
 #>>>>>> Korean Font Setting
@@ -73,17 +78,13 @@ else:
 #<<<<<< Korean Font Setting
 
 #>>>>>> Figure Style Setting
-style = 'whitegrid'
-palette = 'muted'
-context = 'talk'
-
-sns.set_style(style)
-sns.palplot(sns.color_palette(palette))
-sns.set_context(context)
+sns.set_style(SEABORN_STYLE)
+sns.palplot(sns.color_palette(SEABORN_PALETTE))
+sns.set_context(SEABORN_CONTEXT)
 plt.rc('font', family=font_name)
 fm._rebuild()
 mpl.rcParams['axes.unicode_minus'] = False
-print("# Seaborn Figure Style : {}, {}, {}".format(style, palette, context))
+print("# Seaborn Figure Style : {}, {}, {}".format(SEABORN_STYLE, SEABORN_PALETTE, SEABORN_CONTEXT))
 
 #<<<<<< 2.Figure Style Setting
 
@@ -93,7 +94,7 @@ print("# Seaborn Figure Style : {}, {}, {}".format(style, palette, context))
 import warnings
 warnings.filterwarnings(action='ignore')
 
-def df2md(df, maxlen=20, indexname='(index)'):
+def df2md(df, maxlen=20, indexname='(index)', showindex=True):
     '''
     Nice Representation of Pandas DataFrame and Series in Markdown Format.
     
@@ -104,6 +105,7 @@ def df2md(df, maxlen=20, indexname='(index)'):
              data exceeding maxlen will be presented as ' ...'
     indexname : (str) name of index, to be displayed on markdown output.
                 To avoid overriding column name, if conflicts, the '_' will be added in front of the indexname.
+    showindex : (Boolean) show index or not.
     '''
     
     _df = copy.deepcopy(df)
@@ -117,17 +119,18 @@ def df2md(df, maxlen=20, indexname='(index)'):
         if (_df[col].str.len()> maxlen).any() :
             _df[col].loc[_df[col].str.len() > maxlen] = _df[col].str.slice(stop=maxlen) + ' ...'
 
-    if indexname in _df.columns:
-        while(indexname in _df.columns):
-            indexname='_'+indexname
-        warnings.warn("The index name shouldn't overlap other column names. {} will be used instead.\nConsider changing the indexname parameter.".format(indexname), SyntaxWarning)
-    _df.insert(0, indexname, df.index)
+    if showindex == True:
+        if indexname in _df.columns:
+            while(indexname in _df.columns):
+                indexname='_'+indexname
+            warnings.warn("The index name shouldn't overlap other column names. {} will be used instead.\nConsider changing the indexname parameter.".format(indexname), SyntaxWarning)
+        _df.insert(0, indexname, df.index)
 
     fmt = ['---' for i in range(len(_df.columns))]
     df_fmt = pd.DataFrame([fmt], columns=_df.columns)
     df_formatted = pd.concat([df_fmt, _df])
     display(Markdown(df_formatted.to_csv(sep='|', index=False)))
-    _df.drop(columns=indexname, axis=1, inplace=True)
+    #_df.drop(columns=indexname, axis=1, inplace=True)
     del _df
 
 print("# Available Functions : {}".format('df2md(), bar(), pie(), donut(), dist(), dists(), scatter()'))
@@ -286,7 +289,7 @@ def bar(df, xcols, rcols=None, labels=None, gap=0.03):
                             _df = df[df[rcol]==yu]
                             _plot2(_df, xcol, rcol)
             else:
-                sys.exit('ERROR: `rcol` is not valid column.')
+                sys.exit('ERROR: `rcols` is not valid column.')
 
     # if labels == None
     if labels == None:
@@ -315,7 +318,7 @@ def calc_abs(pct, data_array: list):
 def pie(
     df,
     xcols,
-    rcol,
+    rcols=None,
     labels=None,
     cmap="tab20",
     startangle=90,
@@ -328,8 +331,8 @@ def pie(
     Parameters
     ----------------
     df : pandas.DataFrame
-    xcols : (list, numpy.ndarray or str) column name(s) of pandas.DataFrame.
-    rcol : (str) target column name 
+    xcols : (list or str) column name(s) of pandas.DataFrame.
+    rcols : (list or str) column name(s) of pandas.DataFrame to restrict data.
     labels : (dict) label names to be displayed on graph.
              if None, column name will be displayed.
     cmap : (Matplotlib colormap) default is 'tab20'.
@@ -338,7 +341,7 @@ def pie(
     legend : (Boolean) Adding legend box on rightside of graph
     """
 
-    def _plot(xcol):
+    def _plot2(df, xcol, rcol):
         grouped = pd.DataFrame(df.groupby(xcol).count().reset_index())
         fig, ax = plt.subplots(figsize=(10, 6))
 
@@ -346,8 +349,18 @@ def pie(
         colormap = plt.get_cmap(cmap)
         cats = grouped[xcol].values  # Categories, to be one-hot encoded
         ncat = grouped[xcol].shape[0]  # Number of Categories
-        nums = grouped[ycol].values  # Number of data for each categories
-
+        nums = grouped[rcol].values  # Number of data for each categories
+        
+        # print out as tables, if annotate == False
+        if annotate == False:
+            _grouped = grouped[[xcol, rcol]]
+            if rcol == '@pega@dummy@pega@':
+                newrcol = 'No. of Data'
+            else:
+                newrcol = '{} = {}'.format(labels[rcol], str(df[rcol].iloc[0]))
+            _grouped.rename(columns={xcol:labels[xcol], rcol:newrcol}, inplace=True)
+            df2md(_grouped, showindex=False)
+            
         # masking pie charts with given colors
         colors = [colormap(i) for i in np.linspace(0, 1, ncat)]
         wedges, texts, autotexts = ax.pie(
@@ -355,18 +368,64 @@ def pie(
             colors=colors,
             autopct=lambda pct: calc_abs(pct, nums) if annotate == True else None,
             startangle=startangle,
+            textprops={"color":"w"}
         )
+        plt.setp(autotexts, size=16, weight="bold")
+        
+        # legend
         if legend == True:
             ax.legend(
-                wedges, cats, loc="center right"
-            )  # , bbox_to_anchor=(0.8, 0, 0.5, 1))
+                wedges, cats, 
+                title = labels[xcol], loc="center right",
+                title_fontsize=16
+            )
+        else:
+            ax.legend(
+                title = labels[xcol], loc="center",
+                title_fontsize=16,
+                framealpha = 1
+            )
+ 
+        # title
+        if rcol == '@pega@dummy@pega@':
+            title = ""
+        else:
+            title = "{} ({})".format(labels[rcol], df[rcol].iloc[0])
+        ax.set_title(title)
+        
+        # save as file
         ax.axis("equal")
         df_name = namestr(df)
-        ax.set_title(labels[xcol])
-        plt.setp(autotexts, size=16)
-        plt.savefig("./images/cat_pie_{}_{}.png".format(df_name, labels[xcol]))
+        figname = "./images/cat_pie_{}_{}".format(df_name, labels[xcol])
+        if rcol == '@pega@dummy@pega@':
+            figname += ".png"
+        else:
+            figname += "_{}.png".format(labels[rcol]+str(df[rcol].iloc[0]))
+        plt.savefig(figname)
+        
 
-    # if labels == None
+    def _plot1(df, xcol, rcols):
+        if rcols == None:
+          _df = copy.deepcopy(df)
+          dummyname = '@pega@dummy@pega@'
+          _df[dummyname] = _df.index
+          _plot2(_df, xcol, dummyname)
+        else:
+            if chktype(df[rcols], 'Series'):
+                rcolu = np.unique(df[rcols])
+                for yu in rcolu:
+                  _df = df[df[rcols]==yu]
+                  _plot2(_df, xcol, rcols)
+            elif chktype(rcols, 'list') or chktype(rcols, 'np.array'):
+                for rcol in rcols:
+                    if chktype(df[rcol], 'Series'):
+                        rcolu = np.unique(df[rcol])
+                        for yu in rcolu:
+                            _df = df[df[rcol]==yu]
+                            _plot2(_df, xcol, rcol)
+            else:
+                sys.exit('ERROR: `rcols` is not valid column.')
+                
     if labels == None:
         _labels = _cols = df.columns
         labels = dict(zip(_labels, _cols))
@@ -375,11 +434,11 @@ def pie(
     if chktype(xcols, "list") or chktype(xcols, "ndarray"):
         for xcol in xcols:
             if chktype(df[xcol], "Series"):
-                _plot(xcol)
+                _plot1(df, xcol, rcols)
             else:
                 sys.exit("ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name")
     elif chktype(df[xcols], "Series"):
-        _plot(xcols)
+        _plot1(df, xcols, rcols)
     else:
         sys.exit("ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)")
         
@@ -388,7 +447,7 @@ def pie(
 def donut(
     df,
     xcols,
-    ycol,
+    rcols=None,
     labels=None,
     cmap="tab20",
     startangle=-40,
@@ -401,8 +460,8 @@ def donut(
     Parameters
     ----------------
     df : pandas.DataFrame
-    xcols : (list, numpy.ndarray or str) column name(s) of pandas.DataFrame.
-    ycol : (str) target column name 
+    xcols : (list or str) column name(s) of pandas.DataFrame.
+    rcols : (list or str) column name(s) of pandas.DataFrame to restrict data.
     labels : (dict) label names to be displayed on graph.
              if None, column name will be displayed.
     cmap : (Matplotlib colormap) default is 'tab20'.
@@ -411,13 +470,13 @@ def donut(
     legend : (Boolean) Adding legend box on rightside of graph
     """
 
-    def _plot(xcol):
+    def _plot2(df, xcol, rcol):
         # Categorical Data to plot
         grouped = pd.DataFrame(df.groupby(xcol).count().reset_index())
         colormap = plt.get_cmap(cmap)
         cats = grouped[xcol].values  # Categories, to be one-hot encoded
         ncat = grouped[xcol].shape[0]  # Number of Categories
-        nums = grouped[ycol].values  # Number of data for each categories
+        nums = grouped[rcol].values  # Number of data for each categories
 
         # preparation of texts to be marked on graph
         text_list = []
@@ -476,14 +535,57 @@ def donut(
                     fontsize=16,
                     **kw
                 )
+        # print out as tables, if annotate == False
+        else:
+            _grouped = grouped[[xcol, rcol]]
+            if rcol == '@pega@dummy@pega@':
+                newrcol = 'No. of Data'
+            else:
+                newrcol = '{} = {}'.format(labels[rcol], str(df[rcol].iloc[0]))
+            _grouped.rename(columns={xcol:labels[xcol], rcol:newrcol}, inplace=True)
+            df2md(_grouped, showindex=False)
 
         ax.axis("equal")
-        ax.set_title(labels[xcol])
+        if rcol == '@pega@dummy@pega@':
+            title = '  '
+        else:
+            title = '{} ({})'.format(labels[rcol], df[rcol].iloc[0])
+        ax.set_title(title)
+        
+        if legend != True:
+            ax.text(0.5, 0.5, labels[xcol], transform=ax.transAxes, fontsize=16, 
+                    verticalalignment='center',
+                    horizontalalignment='center')
         if legend == True:
-            ax.legend(wedges, cats, loc="center right", bbox_to_anchor=(0.8, 0, 0.5, 1))
+            ax.legend(wedges, cats, title = labels[xcol], 
+                      loc="center right", title_fontsize=16)
         df_name = namestr(df)
         plt.savefig("./images/cat_donut_{}_{}.png".format(df_name, labels[xcol]))
 
+    
+    def _plot1(df, xcol, rcols):
+        if rcols == None:
+          _df = copy.deepcopy(df)
+          dummyname = '@pega@dummy@pega@'
+          _df[dummyname] = _df.index
+          _plot2(_df, xcol, dummyname)
+        else:
+            if chktype(df[rcols], 'Series'):
+                rcolu = np.unique(df[rcols])
+                for yu in rcolu:
+                  _df = df[df[rcols]==yu]
+                  _plot2(_df, xcol, rcols)
+            elif chktype(rcols, 'list') or chktype(rcols, 'np.array'):
+                for rcol in rcols:
+                    if chktype(df[rcol], 'Series'):
+                        rcolu = np.unique(df[rcol])
+                        for yu in rcolu:
+                            _df = df[df[rcol]==yu]
+                            _plot2(_df, xcol, rcol)
+            else:
+                sys.exit('ERROR: `rcols` is not valid column.')
+                
+        
     # if labels == None
     if labels == None:
         _labels = _cols = df.columns
@@ -493,11 +595,11 @@ def donut(
     if chktype(xcols, "list") or chktype(xcols, "ndarray"):
         for xcol in xcols:
             if chktype(df[xcol], "Series"):
-                _plot(xcol)
+                _plot1(df, xcol, rcols)
             else:
                 sys.exit("ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name")
     elif chktype(df[xcols], "Series"):
-        _plot(xcols)
+        _plot1(df, xcols, rcols)
     else:
         sys.exit("ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)")
 
