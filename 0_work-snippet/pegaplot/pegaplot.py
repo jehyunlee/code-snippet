@@ -165,7 +165,7 @@ for name, color in colorlist.items():
 # suptitle
 fontsuptitle=mpl.font_manager.FontProperties()
 fontsuptitle.set_weight('bold')
-fontsuptitle.set_size(24)
+fontsuptitle.set_size(20)
 
 #<<<<<< Fonts settings
 
@@ -192,26 +192,28 @@ def chktype(var, typename):
 #>>>>>> Plots     
 # bar plot
 # @namestr
-def bar(df, xcols, ycol, labels=None, gap=10):
+def bar(df, xcols, rcols=None, labels=None, gap=0.03):
     """
     Categorical Data Distribution as Barplot
     
     Parameters
     ----------------
     df : pandas.DataFrame
-    xcols : (list, numpy.ndarray or str) column name(s) of pandas.DataFrame.
-    ycol : (str) target column name 
+    xcols : (list or str) column name(s) of pandas.DataFrame.
+    rcol : (list or str) column name(s) of pandas.DataFrame to restrict data.
     labels : (dict) label names to be displayed on graph.
              if None, column name will be displayed.
     gap : (float) distance between bar top and annotation
     """
 
     # Plotting function
-    def _plot(xcol):
+    def _plot2(df, xcol, rcol):
+        
         grouped = pd.DataFrame(df.groupby(xcol).count().reset_index())
 
         plt.figure(figsize=(6, 6))
-        ax = sns.barplot(x=xcol, y=ycol, data=grouped)
+        
+        ax = sns.barplot(x=xcol, y=rcol, data=grouped)
         
         # fontsize of the data number
         fontsize = 16
@@ -219,34 +221,72 @@ def bar(df, xcols, ycol, labels=None, gap=10):
         # adjusting ylims to bare numbers
         #- find min, max values of the bars
         xys = np.array([h.xy for h in ax.patches])
+        hs = np.array([h.get_height() for h in ax.patches])
         y0min = xys[:,1].min()
-        y0max = xys[:,1].max()        
+        hmax = hs.max()        
+        hmin = hs.min()
         
-        #- setting the graph ylims
-        ymin, ymax = ax.get_ylim()
-        if gap > 0:
-            ymax += gap + fontsize
-        if y0max + gap < ymin:
-            ymin += gap
-        ax.set_ylim(ymin, ymax)
-        
-        #- add data on bar
-        for i in ax.patches:
-            ax.text(
-                i.get_x() + i.get_width() / 2,
-                i.get_height() + gap,
-                str(int(i.get_height())),
-                ha="center",
-                fontsize=fontsize
-            )
+        if gap != None:
+            #- setting the graph ylims
+            absgap = hmax * gap
+            ymin, ymax = ax.get_ylim()
+            if absgap > 0:
+                ymax += absgap
+            if hmin + absgap < ymin:
+                ymin += absgap
+            ax.set_ylim(ymin, ymax)
 
-        ax.set(title=labels[xcol])
-        ax.set(xlabel=None)
+            #- add data on bar
+            for i in ax.patches:
+                ax.text(
+                    i.get_x() + i.get_width() / 2,
+                    i.get_height() + absgap,
+                    str(int(i.get_height())),
+                    ha="center",
+                    fontsize=fontsize
+                )
+
+        ax.set(title='  ')
+        ax.set(xlabel=labels[xcol])
         ax.set(ylabel=None)
         
+        if rcol == '@pega@dummy@pega@':
+            suptitle = ""
+        else:
+            suptitle = "{} ({})".format(labels[rcol], df[rcol].iloc[0])
+        
+        plt.suptitle(suptitle, fontproperties=fontsuptitle, position=(0.5, 1))
         plt.tight_layout()
         df_name = namestr(df)
-        plt.savefig("./images/cat_bar_{}_{}.png".format(df_name, labels[xcol]))
+        
+        figname = "./images/cat_bar_{}_{}".format(df_name, labels[xcol])
+        if rcol == '@pega@dummy@pega@':
+            figname += ".png"
+        else:
+            figname += "_{}.png".format(labels[rcol]+str(df[rcol].iloc[0]))
+        plt.savefig(figname)
+        
+    def _plot1(df, xcol, rcols):
+        if rcols == None:
+          _df = copy.deepcopy(df)
+          dummyname = '@pega@dummy@pega@'
+          _df[dummyname] = _df.index
+          _plot2(_df, xcol, dummyname)
+        else:
+            if chktype(df[rcols], 'Series'):
+                rcolu = np.unique(df[rcols])
+                for yu in rcolu:
+                  _df = df[df[rcols]==yu]
+                  _plot2(_df, xcol, rcols)
+            elif chktype(rcols, 'list') or chktype(rcols, 'np.array'):
+                for rcol in rcols:
+                    if chktype(df[rcol], 'Series'):
+                        rcolu = np.unique(df[rcol])
+                        for yu in rcolu:
+                            _df = df[df[rcol]==yu]
+                            _plot2(_df, xcol, rcol)
+            else:
+                sys.exit('ERROR: `rcol` is not valid column.')
 
     # if labels == None
     if labels == None:
@@ -257,11 +297,11 @@ def bar(df, xcols, ycol, labels=None, gap=10):
     if chktype(xcols, "list") or chktype(xcols, "ndarray"):
         for xcol in xcols:
             if chktype(df[xcol], "Series"):
-                _plot(xcol)
+                _plot1(df, xcol, rcols)
             else:
                 sys.exit("ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name")
     elif chktype(df[xcols], "Series"):
-        _plot(xcols)
+        _plot1(df, xcols, rcols)
     else:
         sys.exit("ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)")
         
@@ -275,7 +315,7 @@ def calc_abs(pct, data_array: list):
 def pie(
     df,
     xcols,
-    ycol,
+    rcol,
     labels=None,
     cmap="tab20",
     startangle=90,
@@ -289,7 +329,7 @@ def pie(
     ----------------
     df : pandas.DataFrame
     xcols : (list, numpy.ndarray or str) column name(s) of pandas.DataFrame.
-    ycol : (str) target column name 
+    rcol : (str) target column name 
     labels : (dict) label names to be displayed on graph.
              if None, column name will be displayed.
     cmap : (Matplotlib colormap) default is 'tab20'.
