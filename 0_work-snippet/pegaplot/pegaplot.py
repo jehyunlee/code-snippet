@@ -78,7 +78,9 @@ else:
 #<<<<<< Korean Font Setting
 
 #>>>>>> Figure Style Setting
+plt.style.context('seaborn')
 sns.set_style(SEABORN_STYLE)
+sns.set_palette(SEABORN_PALETTE)
 sns.palplot(sns.color_palette(SEABORN_PALETTE))
 sns.set_context(SEABORN_CONTEXT)
 plt.rc('font', family=font_name)
@@ -176,12 +178,18 @@ fontsuptitle.set_size(20)
 # Retrieving Variable Name
 import traceback
 
-def namestr(*expr):
-    (filename,line_number,function_name,text)=traceback.extract_stack()[-2]
-    begin=text.find('namestr(')+len('namestr(')
-    end=text.find(')',begin)
-    text=[name.strip() for name in text[begin:end].split(',')]
-    return text[0]
+def namestr(order, *expr):
+    for i in range(-10, -1):
+        (filename,line_number,function_name,text)=traceback.extract_stack()[i]
+        print(text)
+        
+    (filename,line_number,function_name,text)=traceback.extract_stack()[order]
+    begin = text.find('(') + 1
+    end = text.find(',', begin)
+    ans = text[begin:end].strip(' ')
+    if '=' in ans:
+      ans = ans.split('=')[1]
+    return ans
   
 # Check type of variable
 def chktype(var, typename):
@@ -194,8 +202,7 @@ def chktype(var, typename):
 
 #>>>>>> Plots     
 # bar plot
-# @namestr
-def bar(df, xcols, rcols=None, labels=None, gap=0.03):
+def bar(df, xcols, rcols=None, labels=None, gap=0.03, **kwargs):
     """
     Categorical Data Distribution as Barplot
     
@@ -216,7 +223,7 @@ def bar(df, xcols, rcols=None, labels=None, gap=0.03):
 
         plt.figure(figsize=(6, 6))
         
-        ax = sns.barplot(x=xcol, y=rcol, data=grouped)
+        ax = sns.barplot(x=xcol, y=rcol, data=grouped, **kwargs)
         
         # fontsize of the data number
         fontsize = 16
@@ -260,7 +267,6 @@ def bar(df, xcols, rcols=None, labels=None, gap=0.03):
         
         plt.suptitle(suptitle, fontproperties=fontsuptitle, position=(0.5, 1))
         plt.tight_layout()
-        df_name = namestr(df)
         
         figname = "./images/cat_bar_{}_{}".format(df_name, labels[xcol])
         if rcol == '@pega@dummy@pega@':
@@ -290,7 +296,9 @@ def bar(df, xcols, rcols=None, labels=None, gap=0.03):
                             _plot2(_df, xcol, rcol)
             else:
                 sys.exit('ERROR: `rcols` is not valid column.')
-
+    
+    df_name = namestr(-3, df)
+    
     # if labels == None
     if labels == None:
         _labels = _cols = df.columns
@@ -395,7 +403,6 @@ def pie(
         
         # save as file
         ax.axis("equal")
-        df_name = namestr(df)
         figname = "./images/cat_pie_{}_{}".format(df_name, labels[xcol])
         if rcol == '@pega@dummy@pega@':
             figname += ".png"
@@ -425,6 +432,8 @@ def pie(
                             _plot2(_df, xcol, rcol)
             else:
                 sys.exit('ERROR: `rcols` is not valid column.')
+    
+    df_name = namestr(-3, df)
                 
     if labels == None:
         _labels = _cols = df.columns
@@ -559,8 +568,13 @@ def donut(
         if legend == True:
             ax.legend(wedges, cats, title = labels[xcol], 
                       loc="center right", title_fontsize=16)
-        df_name = namestr(df)
-        plt.savefig("./images/cat_donut_{}_{}.png".format(df_name, labels[xcol]))
+        
+        figname = "./images/cat_donut_{}_{}".format(df_name, labels[xcol])
+        if rcol == '@pega@dummy@pega@':
+            figname += ".png"
+        else:
+            figname += "_{}.png".format(labels[rcol]+str(df[rcol].iloc[0]))
+        plt.savefig(figname)
 
     
     def _plot1(df, xcol, rcols):
@@ -585,7 +599,8 @@ def donut(
             else:
                 sys.exit('ERROR: `rcols` is not valid column.')
                 
-        
+    df_name = namestr(-3, df)
+    
     # if labels == None
     if labels == None:
         _labels = _cols = df.columns
@@ -607,10 +622,14 @@ def donut(
 def dist(
     df,
     xcols,
+    rcols=None,
+    rsep=False,
+    xlims=None,
+    ylims=None,
     labels=None,
     text=False,
     maxbar=False,
-    kde=False,
+    kde=True,
     rug=False,
     xlog=False,
     ylog=False,
@@ -622,7 +641,11 @@ def dist(
     Parameters
     ----------------
     df : pandas.DataFrame
-    xcols : (list, numpy.ndarray or str) column name(s) of pandas.DataFrame.
+    xcols : (list or str) column name(s) of pandas.DataFrame.
+    rcols : (list or str) column name(s) of pandas.DataFrame to restrict data.
+    rsep : (Boolean) separate category of rcols as independent images.
+    xlims : (list) range of y values on graph. [xmin, xmax]
+    ylims : (list) range of y values on graph. [ymin, ymax]
     labels : (dict) label names to be displayed on graph.
              if None, column name will be displayed.
     text : (Boolean) display mean, std, max, min on graph.
@@ -634,49 +657,84 @@ def dist(
     **kwargs : keyword argument for seaborn.distplot()
     """
 
-    def _plot(xcol):
+    def _plot2(df, xcol, rcol):
 
         fig, ax = plt.subplots(figsize=(6, 6))
-        f = sns.distplot(df[xcol], kde=kde, rug=rug, **kwargs)
-        df_name = namestr(df)
+        
+        rcolu = np.unique(df[rcol])
+        nrcolu = len(rcolu)
+        
+        for yu in rcolu:
+            _df = df[df[rcol]==yu]
+            
+            if rsep != True:  ########### here
+                plotlabel = '{} ({})'.format(labels[rcol], _df[rcol].iloc[0])
+            else:
+                plotlabel = None
+                
+            f = sns.distplot(
+                              _df[xcol], 
+                              kde=kde, 
+                              rug=rug,
+                              label=plotlabel,
+                              **kwargs
+                            )
 
-        mean_val = df[xcol].mean()
-        std_val = df[xcol].std()
-        max_val = df[xcol].max()
-        min_val = df[xcol].min()
+            mean_val = _df[xcol].mean()
+            std_val = _df[xcol].std()
+            max_val = _df[xcol].max()
+            min_val = _df[xcol].min()
 
-        print(
-            "{}, {}: mean= {:.2f}, st.dev.= {:.2f}, min= {:.2f}, max= {:.2f}".format(
-                df_name, xcol, mean_val, std_val, min_val, max_val
+            distsummary = ": mean= {:.2f}, st.dev.= {:.2f}, min= {:.2f}, max= {:.2f}".format(
+                    mean_val, std_val, min_val, max_val
+                )
+            prefix = '{}, {}'.format(df_name, xcol)
+            
+            if rcol == '@pega@dummy@pega@':
+                pass
+            else:
+                prefix += ', {}({})'.format(rcol, yu)
+            
+            print(prefix + distsummary)
+            
+            if (text == True) and (nrcolu == 1):
+                fig.text(0.3, 0.8, "     mean : {:>3.02f}".format(mean_val), fontsize=16)
+                fig.text(0.3, 0.75, "        std : {:>3.02f}".format(std_val), fontsize=16)
+                fig.text(0.3, 0.7, "       max : {:>3.02f}".format(max_val), fontsize=16)
+                fig.text(0.3, 0.65, "       min : {:>3.02f}".format(min_val), fontsize=16)
+
+            # The most frequent bin
+            heights = [h.get_height() for h in f.patches]
+            index_max = np.argmax(heights)
+
+            max_x = f.patches[index_max].get_x() + np.array(
+                [0, f.patches[index_max].get_width() / 2]
             )
-        )
 
-        if text == True:
-            fig.text(0.3, 0.8, "     mean : {:>3.02f}".format(mean_val), fontsize=16)
-            fig.text(0.3, 0.75, "        std : {:>3.02f}".format(std_val), fontsize=16)
-            fig.text(0.3, 0.7, "       max : {:>3.02f}".format(max_val), fontsize=16)
-            fig.text(0.3, 0.65, "       min : {:>3.02f}".format(min_val), fontsize=16)
+            if (text == True) and (maxbar == True) and (nrcolu == 1):
+                fig.text(
+                    0.3,
+                    0.6,
+                    "max bin : {:>.02f}~{:>.02f}".format(max_x[0], max_x[1]),
+                    fontsize=16,
+                    color="blue",
+                )
 
-        # The most frequent bin
-        heights = [h.get_height() for h in f.patches]
-        index_max = np.argmax(heights)
-
-        max_x = f.patches[index_max].get_x() + np.array(
-            [0, f.patches[index_max].get_width() / 2]
-        )
-
-        if (text == True) and (maxbar == True):
-            fig.text(
-                0.3,
-                0.6,
-                "max bin : {:>.02f}~{:>.02f}".format(max_x[0], max_x[1]),
-                fontsize=16,
-                color="blue",
-            )
-
-        if maxbar == True:
-            f.patches[index_max].set_color("blue")
-
+            if (maxbar == True) and (nrcolu == 1):
+                f.patches[index_max].set_color("blue")
+        
+        if xlims != None:
+            xmin = xlims[0]
+            xmax = xlims[1]
+            ax.set_xlim(xmin, xmax)
+        
+        if ylims != None:
+            ymin = ylims[0]
+            ymax = ylims[1]
+            ax.set_ylim(ymin, ymax)
+        
+        ax.set(title='  ')
+        
         f.set(xlabel=labels[xcol])
 
         if xlog == True:
@@ -685,11 +743,56 @@ def dist(
         if ylog == True:
             f.set(yscale="log")
             plt.yticks(fontname="Liberation Sans")
+        
+        if rcol == '@pega@dummy@pega@':
+            suptitle = ""
+        elif rsep == True:
+            suptitle = "{} ({})".format(labels[rcol], df[rcol].iloc[0])
+        else:
+            suptitle = "{}".format(labels[rcol])
+            plt.legend()
+        
+        plt.suptitle(suptitle, fontproperties=fontsuptitle, position=(0.5, 1))
 
         plt.tight_layout()
-        f.figure.savefig(
-            "./images/dist_{}_{}.png".format(df_name, labels[xcol].replace("\n", " "))
-        )
+
+        figname = "./images/dist_{}_{}".format(df_name, labels[xcol])
+        if rcol == '@pega@dummy@pega@':
+            figname += ".png"
+        else:
+            figname += "_{}.png".format(labels[rcol]+str(df[rcol].iloc[0]))
+        f.figure.savefig(figname)
+
+    
+    def _plot1(df, xcol, rcols):
+        if rcols == None:
+          _df = copy.deepcopy(df)
+          dummyname = '@pega@dummy@pega@'
+          _df[dummyname] = 0
+          _plot2(_df, xcol, dummyname)
+        else:
+            if chktype(df[rcols], 'Series'):
+                if rsep == True:
+                    rcolu = np.unique(df[rcols])
+                    for yu in rcolu:
+                      _df = df[df[rcols]==yu]
+                      _plot2(_df, xcol, rcols)
+                else:
+                    _plot2(df, xcol, rcols)
+            elif chktype(rcols, 'list') or chktype(rcols, 'np.array'):
+                for rcol in rcols:
+                    if chktype(df[rcol], 'Series'):
+                        if rsep == True:
+                          rcolu = np.unique(df[rcol])
+                          for yu in rcolu:
+                              _df = df[df[rcol]==yu]
+                              _plot2(_df, xcol, rcol)
+                        else:
+                          _plot2(df, xcol, rcol)
+            else:
+                sys.exit('ERROR: `rcols` is not valid column.')
+    
+    df_name = namestr(-3, df)
 
     # if labels == None
     if labels == None:
@@ -700,11 +803,11 @@ def dist(
     if chktype(xcols, "list") or chktype(xcols, "ndarray"):
         for xcol in xcols:
             if chktype(df[xcol], "Series"):
-                _plot(xcol)
+                _plot1(df, xcol, rcols)
             else:
                 sys.exit("ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name")
     elif chktype(df[xcols], "Series"):
-        _plot(xcols)
+        _plot1(df, xcols, rcols)
     else:
         sys.exit("ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)")
         
@@ -719,6 +822,7 @@ def dists(
     rug=False,
     xlog=False,
     ylog=False,
+  
     **kwargs
 ):
     """
@@ -728,7 +832,7 @@ def dists(
     ----------------
     df : pandas.DataFrame
     xcols : (list, numpy.ndarray or str) column name(s) of pandas.DataFrame.
-    
+  
     label_df : (dict) labels of the DataFrame, to be displayed on graph.
                if None, DataFrame name will be displayed.
     labels : (dict) label names to be displayed on graph.
@@ -931,7 +1035,8 @@ def scatter(
                      the filename will be './images/scatter_{DataFrame_name}_{filename}.png'
                      if None, all `xcols` will be enlisted.
     """
-
+    df_name = namestr(df)
+    
     # figure dimension decision
     nxcols = len(xcols)
     if ncols == None:
@@ -1032,8 +1137,6 @@ def scatter(
     plt.suptitle(suptitle, fontproperties=fontsuptitle)
 
     plt.tight_layout()
-
-    df_name = namestr(df)
     if filename == None:
         filename = ""
         for xcol in xcols:
