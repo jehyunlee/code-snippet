@@ -667,8 +667,8 @@ def dist(
         for yu in rcolu:
             _df = df[df[rcol]==yu]
             
-            if rsep != True:  ########### here
-                plotlabel = '{} ({})'.format(labels[rcol], _df[rcol].iloc[0])
+            if rsep != True:
+                plotlabel = '{}={}'.format(labels[rcol], _df[rcol].iloc[0]) ####
             else:
                 plotlabel = None
                 
@@ -759,8 +759,10 @@ def dist(
         figname = "./images/dist_{}_{}".format(df_name, labels[xcol])
         if rcol == '@pega@dummy@pega@':
             figname += ".png"
-        else:
+        elif rsep == True:
             figname += "_{}.png".format(labels[rcol]+str(df[rcol].iloc[0]))
+        else:
+            figname += "_{}.png".format(labels[rcol])
         f.figure.savefig(figname)
 
     
