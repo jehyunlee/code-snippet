@@ -3,11 +3,11 @@
 # ver. 2019.11.28.
 # Jehyun Lee (jehyun.lee@gmail.com)
 
-SEABORN_STYLE = 'whitegrid'
-SEABORN_PALETTE = 'muted'
-SEABORN_CONTEXT = 'talk'
+SEABORN_STYLE = "whitegrid"
+SEABORN_PALETTE = "muted"
+SEABORN_CONTEXT = "talk"
 
-#-------------------------------------------------------------
+# -------------------------------------------------------------
 
 import numpy as np
 import pandas as pd
@@ -19,26 +19,28 @@ from matplotlib import gridspec
 
 sns.set(font_scale=1)
 
-#>>>>>> Korean Font Setting
+# >>>>>> Korean Font Setting
 import platform
+
 system = platform.system()
 
 # -*- coding: UTF-8 -*-
-get_ipython().run_line_magic('matplotlib', 'inline')
+get_ipython().run_line_magic("matplotlib", "inline")
 
 import matplotlib as mpl  # 기본 설정 만지는 용도
 import matplotlib.pyplot as plt  # 그래프 그리는 용도
 import matplotlib.font_manager as fm  # 폰트 관련 용도
-print ('버전: ', mpl.__version__)
-print ('설치 위치: ', mpl.__file__)
-print ('설정 위치: ', mpl.get_configdir())
-print ('캐시 위치: ', mpl.get_cachedir())
-print ('설정 파일 위치: ', mpl.matplotlib_fname())
-font_list = fm.findSystemFonts(fontpaths=None, fontext='ttf')
 
-if system == 'Windows':
-    datapath = os.getcwd() + '\\'
-    imagepath = datapath + 'images\\'
+print("버전: ", mpl.__version__)
+print("설치 위치: ", mpl.__file__)
+print("설정 위치: ", mpl.get_configdir())
+print("캐시 위치: ", mpl.get_cachedir())
+print("설정 파일 위치: ", mpl.matplotlib_fname())
+font_list = fm.findSystemFonts(fontpaths=None, fontext="ttf")
+
+if system == "Windows":
+    datapath = os.getcwd() + "\\"
+    imagepath = datapath + "images\\"
 
     # ttf 폰트 전체개수
     font_list[:10]
@@ -46,58 +48,64 @@ if system == 'Windows':
     f = [f.name for f in fm.fontManager.ttflist]
     f[:10]
 
-    [(f.name, f.fname) for f in fm.fontManager.ttflist if 'Nanum' in f.name]
+    [(f.name, f.fname) for f in fm.fontManager.ttflist if "Nanum" in f.name]
 
-    path = 'C:\\Windows\\Fonts\\NanumBarunGothic.ttf'
+    path = "C:\\Windows\\Fonts\\NanumBarunGothic.ttf"
     font_name = fm.FontProperties(fname=path, size=50).get_name()
 
     print(font_name)
-    plt.rc('font', family=font_name)
+    plt.rc("font", family=font_name)
     print("# matplotlib 한글 사용 가능")
 
-elif system == 'Linux':
-    datapath = os.getcwd() + '//'
-    imagepath = datapath + 'images//'
-  
-#     !apt-get update -qq
-#     !apt-get install fonts-nanum* -qq
+elif system == "Linux":
+    datapath = os.getcwd() + "//"
+    imagepath = datapath + "images//"
 
-    path = '/usr/share/fonts/truetype/nanum/NanumGothic.ttf'  # 설치된 나눔글꼴중 원하는 녀석의 전체 경로를 가져오자
+    #     !apt-get update -qq
+    #     !apt-get install fonts-nanum* -qq
+
+    path = "/usr/share/fonts/truetype/nanum/NanumGothic.ttf"  # 설치된 나눔글꼴중 원하는 녀석의 전체 경로를 가져오자
     font_name = fm.FontProperties(fname=path, size=10).get_name()
 
     print(font_name)
-    plt.rc('font', family=font_name)
+    plt.rc("font", family=font_name)
 
     fm._rebuild()
-    mpl.rcParams['axes.unicode_minus'] = False
+    mpl.rcParams["axes.unicode_minus"] = False
     print("# matplotlib 한글 사용 가능")
 
 else:
-    sys.exit('ERROR: Sorry, my code has compatibility with Windows and Linux only.')
+    sys.exit("ERROR: Sorry, my code has compatibility with Windows and Linux only.")
 
-#<<<<<< Korean Font Setting
+# <<<<<< Korean Font Setting
 
-#>>>>>> Figure Style Setting
-plt.style.context('seaborn')
+# >>>>>> Figure Style Setting
+plt.style.context("seaborn")
 sns.set_style(SEABORN_STYLE)
 sns.set_palette(SEABORN_PALETTE)
 sns.palplot(sns.color_palette(SEABORN_PALETTE))
 sns.set_context(SEABORN_CONTEXT)
-plt.rc('font', family=font_name)
+plt.rc("font", family=font_name)
 fm._rebuild()
-mpl.rcParams['axes.unicode_minus'] = False
-print("# Seaborn Figure Style : {}, {}, {}".format(SEABORN_STYLE, SEABORN_PALETTE, SEABORN_CONTEXT))
+mpl.rcParams["axes.unicode_minus"] = False
+print(
+    "# Seaborn Figure Style : {}, {}, {}".format(
+        SEABORN_STYLE, SEABORN_PALETTE, SEABORN_CONTEXT
+    )
+)
 
-#<<<<<< 2.Figure Style Setting
+# <<<<<< 2.Figure Style Setting
 
-#>>>>>> 3. Nice Representation of dataframe in markdown
+# >>>>>> 3. Nice Representation of dataframe in markdown
 
 # Nice representation of dataframe in markdown
 import warnings
-warnings.filterwarnings(action='ignore')
 
-def df2md(df, maxlen=20, indexname='(index)', showindex=True):
-    '''
+warnings.filterwarnings(action="ignore")
+
+
+def df2md(df, maxlen=20, indexname="(index)", showindex=True):
+    """
     Nice Representation of Pandas DataFrame and Series in Markdown Format.
     
     Parameters
@@ -108,50 +116,62 @@ def df2md(df, maxlen=20, indexname='(index)', showindex=True):
     indexname : (str) name of index, to be displayed on markdown output.
                 To avoid overriding column name, if conflicts, the '_' will be added in front of the indexname.
     showindex : (Boolean) show index or not.
-    '''
-    
+    """
+
     _df = copy.deepcopy(df)
-    
-    if 'Series' in str(type(df)):
-      _idx = _df.index
-      _df = pd.DataFrame(data=_df, index=_idx)
-      
+
+    if "Series" in str(type(df)):
+        _idx = _df.index
+        _df = pd.DataFrame(data=_df, index=_idx)
+
     for col in _df.columns:
-        _df[col] = _df[col].astype('str')
-        if (_df[col].str.len()> maxlen).any() :
-            _df[col].loc[_df[col].str.len() > maxlen] = _df[col].str.slice(stop=maxlen) + ' ...'
+        _df[col] = _df[col].astype("str")
+        if (_df[col].str.len() > maxlen).any():
+            _df[col].loc[_df[col].str.len() > maxlen] = (
+                _df[col].str.slice(stop=maxlen) + " ..."
+            )
 
     if showindex == True:
         if indexname in _df.columns:
-            while(indexname in _df.columns):
-                indexname='_'+indexname
-            warnings.warn("The index name shouldn't overlap other column names. {} will be used instead.\nConsider changing the indexname parameter.".format(indexname), SyntaxWarning)
+            while indexname in _df.columns:
+                indexname = "_" + indexname
+            warnings.warn(
+                "The index name shouldn't overlap other column names. {} will be used instead.\nConsider changing the indexname parameter.".format(
+                    indexname
+                ),
+                SyntaxWarning,
+            )
         _df.insert(0, indexname, df.index)
 
-    fmt = ['---' for i in range(len(_df.columns))]
+    fmt = ["---" for i in range(len(_df.columns))]
     df_fmt = pd.DataFrame([fmt], columns=_df.columns)
     df_formatted = pd.concat([df_fmt, _df])
-    display(Markdown(df_formatted.to_csv(sep='|', index=False)))
-    #_df.drop(columns=indexname, axis=1, inplace=True)
+    display(Markdown(df_formatted.to_csv(sep="|", index=False)))
+    # _df.drop(columns=indexname, axis=1, inplace=True)
     del _df
 
-print("# Available Functions : {}".format('df2md(), bar(), pie(), donut(), dist(), dists(), scatter()'))
 
-#<<<<<< Nice Representation of dataframe in markdown
+print(
+    "# Available Functions : {}".format(
+        "df2md(), bar(), pie(), donut(), dist(), dists(), scatter()"
+    )
+)
 
-#>>>>>> images directory check and make if not
+# <<<<<< Nice Representation of dataframe in markdown
+
+# >>>>>> images directory check and make if not
 try:
-    if not(os.path.isdir('./images')):
-        os.makedirs(os.path.join('./images'))
-        print('# Directory created : ./images')
+    if not (os.path.isdir("./images")):
+        os.makedirs(os.path.join("./images"))
+        print("# Directory created : ./images")
 except OSError as e:
     if e.errno != errno.EEXIST:
         print("Failed to create directory!!!!!")
         raise
-        
-#<<<<<< images directory check and make if not
 
-#>>>>>> list colors in matplotlib
+# <<<<<< images directory check and make if not
+
+# >>>>>> list colors in matplotlib
 colorlist = {}
 colorlist.update(mcolors.BASE_COLORS)
 colorlist.update(mcolors.TABLEAU_COLORS)
@@ -163,34 +183,36 @@ for name, color in colorlist.items():
     colornames.append(name)
     colorcodes.append(color)
 
-#<<<<<< list colors in matplotlib
-    
+# <<<<<< list colors in matplotlib
 
-#>>>>>> Fonts settings
+
+# >>>>>> Fonts settings
 # suptitle
-fontsuptitle=mpl.font_manager.FontProperties()
-fontsuptitle.set_weight('bold')
+fontsuptitle = mpl.font_manager.FontProperties()
+fontsuptitle.set_weight("bold")
 fontsuptitle.set_size(20)
 
-#<<<<<< Fonts settings
+# <<<<<< Fonts settings
 
-#>>>>>> Utilities
+# >>>>>> Utilities
 # Retrieving Variable Name
 import traceback
 
+
 def namestr(order, *expr):
     for i in range(-10, -1):
-        (filename,line_number,function_name,text)=traceback.extract_stack()[i]
+        (filename, line_number, function_name, text) = traceback.extract_stack()[i]
         print(text)
-        
-    (filename,line_number,function_name,text)=traceback.extract_stack()[order]
-    begin = text.find('(') + 1
-    end = text.find(',', begin)
-    ans = text[begin:end].strip(' ')
-    if '=' in ans:
-      ans = ans.split('=')[1]
+
+    (filename, line_number, function_name, text) = traceback.extract_stack()[order]
+    begin = text.find("(") + 1
+    end = text.find(",", begin)
+    ans = text[begin:end].strip(" ")
+    if "=" in ans:
+        ans = ans.split("=")[1]
     return ans
-  
+
+
 # Check type of variable
 def chktype(var, typename):
     if typename in str(type(var)):
@@ -198,9 +220,10 @@ def chktype(var, typename):
     else:
         return False
 
-#<<<<<< Utilities
 
-#>>>>>> Plots     
+# <<<<<< Utilities
+
+# >>>>>> Plots
 # bar plot
 def bar(df, xcols, rcols=None, labels=None, gap=0.03, **kwargs):
     """
@@ -218,26 +241,26 @@ def bar(df, xcols, rcols=None, labels=None, gap=0.03, **kwargs):
 
     # Plotting function
     def _plot2(df, xcol, rcol):
-        
+
         grouped = pd.DataFrame(df.groupby(xcol).count().reset_index())
 
         plt.figure(figsize=(6, 6))
-        
+
         ax = sns.barplot(x=xcol, y=rcol, data=grouped, **kwargs)
-        
+
         # fontsize of the data number
         fontsize = 16
-          
+
         # adjusting ylims to bare numbers
-        #- find min, max values of the bars
+        # - find min, max values of the bars
         xys = np.array([h.xy for h in ax.patches])
         hs = np.array([h.get_height() for h in ax.patches])
-        y0min = xys[:,1].min()
-        hmax = hs.max()        
+        y0min = xys[:, 1].min()
+        hmax = hs.max()
         hmin = hs.min()
-        
+
         if gap != None:
-            #- setting the graph ylims
+            # - setting the graph ylims
             absgap = hmax * gap
             ymin, ymax = ax.get_ylim()
             if absgap > 0:
@@ -246,59 +269,59 @@ def bar(df, xcols, rcols=None, labels=None, gap=0.03, **kwargs):
                 ymin += absgap
             ax.set_ylim(ymin, ymax)
 
-            #- add data on bar
+            # - add data on bar
             for i in ax.patches:
                 ax.text(
                     i.get_x() + i.get_width() / 2,
                     i.get_height() + absgap,
                     str(int(i.get_height())),
                     ha="center",
-                    fontsize=fontsize
+                    fontsize=fontsize,
                 )
 
-        ax.set(title='  ')
+        ax.set(title="  ")
         ax.set(xlabel=labels[xcol])
         ax.set(ylabel=None)
-        
-        if rcol == '@pega@dummy@pega@':
+
+        if rcol == "@pega@dummy@pega@":
             suptitle = ""
         else:
             suptitle = "{} ({})".format(labels[rcol], df[rcol].iloc[0])
-        
+
         plt.suptitle(suptitle, fontproperties=fontsuptitle, position=(0.5, 1))
         plt.tight_layout()
-        
+
         figname = "./images/cat_bar_{}_{}".format(df_name, labels[xcol])
-        if rcol == '@pega@dummy@pega@':
+        if rcol == "@pega@dummy@pega@":
             figname += ".png"
         else:
-            figname += "_{}.png".format(labels[rcol]+str(df[rcol].iloc[0]))
+            figname += "_{}.png".format(labels[rcol] + str(df[rcol].iloc[0]))
         plt.savefig(figname)
-        
+
     def _plot1(df, xcol, rcols):
         if rcols == None:
-          _df = copy.deepcopy(df)
-          dummyname = '@pega@dummy@pega@'
-          _df[dummyname] = _df.index
-          _plot2(_df, xcol, dummyname)
+            _df = copy.deepcopy(df)
+            dummyname = "@pega@dummy@pega@"
+            _df[dummyname] = _df.index
+            _plot2(_df, xcol, dummyname)
         else:
-            if chktype(df[rcols], 'Series'):
+            if chktype(df[rcols], "Series"):
                 rcolu = np.unique(df[rcols])
                 for yu in rcolu:
-                  _df = df[df[rcols]==yu]
-                  _plot2(_df, xcol, rcols)
-            elif chktype(rcols, 'list') or chktype(rcols, 'np.array'):
+                    _df = df[df[rcols] == yu]
+                    _plot2(_df, xcol, rcols)
+            elif chktype(rcols, "list") or chktype(rcols, "np.array"):
                 for rcol in rcols:
-                    if chktype(df[rcol], 'Series'):
+                    if chktype(df[rcol], "Series"):
                         rcolu = np.unique(df[rcol])
                         for yu in rcolu:
-                            _df = df[df[rcol]==yu]
+                            _df = df[df[rcol] == yu]
                             _plot2(_df, xcol, rcol)
             else:
-                sys.exit('ERROR: `rcols` is not valid column.')
-    
+                sys.exit("ERROR: `rcols` is not valid column.")
+
     df_name = namestr(-3, df)
-    
+
     # if labels == None
     if labels == None:
         _labels = _cols = df.columns
@@ -310,19 +333,23 @@ def bar(df, xcols, rcols=None, labels=None, gap=0.03, **kwargs):
             if chktype(df[xcol], "Series"):
                 _plot1(df, xcol, rcols)
             else:
-                sys.exit("ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name")
+                sys.exit(
+                    "ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name"
+                )
     elif chktype(df[xcols], "Series"):
         _plot1(df, xcols, rcols)
     else:
-        sys.exit("ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)")
-        
-        
+        sys.exit(
+            "ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)"
+        )
+
+
 def calc_abs(pct, data_array: list):
     absolute = int(pct / 100.0 * np.sum(data_array))
     return "{:.1f}%\n({:d})".format(pct, absolute)
 
-  
-# Pie Chart  
+
+# Pie Chart
 def pie(
     df,
     xcols,
@@ -358,17 +385,17 @@ def pie(
         cats = grouped[xcol].values  # Categories, to be one-hot encoded
         ncat = grouped[xcol].shape[0]  # Number of Categories
         nums = grouped[rcol].values  # Number of data for each categories
-        
+
         # print out as tables, if annotate == False
         if annotate == False:
             _grouped = grouped[[xcol, rcol]]
-            if rcol == '@pega@dummy@pega@':
-                newrcol = 'No. of Data'
+            if rcol == "@pega@dummy@pega@":
+                newrcol = "No. of Data"
             else:
-                newrcol = '{} = {}'.format(labels[rcol], str(df[rcol].iloc[0]))
-            _grouped.rename(columns={xcol:labels[xcol], rcol:newrcol}, inplace=True)
+                newrcol = "{} = {}".format(labels[rcol], str(df[rcol].iloc[0]))
+            _grouped.rename(columns={xcol: labels[xcol], rcol: newrcol}, inplace=True)
             df2md(_grouped, showindex=False)
-            
+
         # masking pie charts with given colors
         colors = [colormap(i) for i in np.linspace(0, 1, ncat)]
         wedges, texts, autotexts = ax.pie(
@@ -376,65 +403,58 @@ def pie(
             colors=colors,
             autopct=lambda pct: calc_abs(pct, nums) if annotate == True else None,
             startangle=startangle,
-            textprops={"color":"w"}
+            textprops={"color": "w"},
         )
         plt.setp(autotexts, size=16, weight="bold")
-        
+
         # legend
         if legend == True:
             ax.legend(
-                wedges, cats, 
-                title = labels[xcol], loc="center right",
-                title_fontsize=16
+                wedges, cats, title=labels[xcol], loc="center right", title_fontsize=16
             )
         else:
-            ax.legend(
-                title = labels[xcol], loc="center",
-                title_fontsize=16,
-                framealpha = 1
-            )
- 
+            ax.legend(title=labels[xcol], loc="center", title_fontsize=16, framealpha=1)
+
         # title
-        if rcol == '@pega@dummy@pega@':
+        if rcol == "@pega@dummy@pega@":
             title = ""
         else:
             title = "{} ({})".format(labels[rcol], df[rcol].iloc[0])
         ax.set_title(title)
-        
+
         # save as file
         ax.axis("equal")
         figname = "./images/cat_pie_{}_{}".format(df_name, labels[xcol])
-        if rcol == '@pega@dummy@pega@':
+        if rcol == "@pega@dummy@pega@":
             figname += ".png"
         else:
-            figname += "_{}.png".format(labels[rcol]+str(df[rcol].iloc[0]))
+            figname += "_{}.png".format(labels[rcol] + str(df[rcol].iloc[0]))
         plt.savefig(figname)
-        
 
     def _plot1(df, xcol, rcols):
         if rcols == None:
-          _df = copy.deepcopy(df)
-          dummyname = '@pega@dummy@pega@'
-          _df[dummyname] = _df.index
-          _plot2(_df, xcol, dummyname)
+            _df = copy.deepcopy(df)
+            dummyname = "@pega@dummy@pega@"
+            _df[dummyname] = _df.index
+            _plot2(_df, xcol, dummyname)
         else:
-            if chktype(df[rcols], 'Series'):
+            if chktype(df[rcols], "Series"):
                 rcolu = np.unique(df[rcols])
                 for yu in rcolu:
-                  _df = df[df[rcols]==yu]
-                  _plot2(_df, xcol, rcols)
-            elif chktype(rcols, 'list') or chktype(rcols, 'np.array'):
+                    _df = df[df[rcols] == yu]
+                    _plot2(_df, xcol, rcols)
+            elif chktype(rcols, "list") or chktype(rcols, "np.array"):
                 for rcol in rcols:
-                    if chktype(df[rcol], 'Series'):
+                    if chktype(df[rcol], "Series"):
                         rcolu = np.unique(df[rcol])
                         for yu in rcolu:
-                            _df = df[df[rcol]==yu]
+                            _df = df[df[rcol] == yu]
                             _plot2(_df, xcol, rcol)
             else:
-                sys.exit('ERROR: `rcols` is not valid column.')
-    
+                sys.exit("ERROR: `rcols` is not valid column.")
+
     df_name = namestr(-3, df)
-                
+
     if labels == None:
         _labels = _cols = df.columns
         labels = dict(zip(_labels, _cols))
@@ -445,14 +465,18 @@ def pie(
             if chktype(df[xcol], "Series"):
                 _plot1(df, xcol, rcols)
             else:
-                sys.exit("ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name")
+                sys.exit(
+                    "ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name"
+                )
     elif chktype(df[xcols], "Series"):
         _plot1(df, xcols, rcols)
     else:
-        sys.exit("ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)")
-        
+        sys.exit(
+            "ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)"
+        )
 
-# Donut Chart        
+
+# Donut Chart
 def donut(
     df,
     xcols,
@@ -547,60 +571,66 @@ def donut(
         # print out as tables, if annotate == False
         else:
             _grouped = grouped[[xcol, rcol]]
-            if rcol == '@pega@dummy@pega@':
-                newrcol = 'No. of Data'
+            if rcol == "@pega@dummy@pega@":
+                newrcol = "No. of Data"
             else:
-                newrcol = '{} = {}'.format(labels[rcol], str(df[rcol].iloc[0]))
-            _grouped.rename(columns={xcol:labels[xcol], rcol:newrcol}, inplace=True)
+                newrcol = "{} = {}".format(labels[rcol], str(df[rcol].iloc[0]))
+            _grouped.rename(columns={xcol: labels[xcol], rcol: newrcol}, inplace=True)
             df2md(_grouped, showindex=False)
 
         ax.axis("equal")
-        if rcol == '@pega@dummy@pega@':
-            title = '  '
+        if rcol == "@pega@dummy@pega@":
+            title = "  "
         else:
-            title = '{} ({})'.format(labels[rcol], df[rcol].iloc[0])
+            title = "{} ({})".format(labels[rcol], df[rcol].iloc[0])
         ax.set_title(title)
-        
+
         if legend != True:
-            ax.text(0.5, 0.5, labels[xcol], transform=ax.transAxes, fontsize=16, 
-                    verticalalignment='center',
-                    horizontalalignment='center')
+            ax.text(
+                0.5,
+                0.5,
+                labels[xcol],
+                transform=ax.transAxes,
+                fontsize=16,
+                verticalalignment="center",
+                horizontalalignment="center",
+            )
         if legend == True:
-            ax.legend(wedges, cats, title = labels[xcol], 
-                      loc="center right", title_fontsize=16)
-        
+            ax.legend(
+                wedges, cats, title=labels[xcol], loc="center right", title_fontsize=16
+            )
+
         figname = "./images/cat_donut_{}_{}".format(df_name, labels[xcol])
-        if rcol == '@pega@dummy@pega@':
+        if rcol == "@pega@dummy@pega@":
             figname += ".png"
         else:
-            figname += "_{}.png".format(labels[rcol]+str(df[rcol].iloc[0]))
+            figname += "_{}.png".format(labels[rcol] + str(df[rcol].iloc[0]))
         plt.savefig(figname)
 
-    
     def _plot1(df, xcol, rcols):
         if rcols == None:
-          _df = copy.deepcopy(df)
-          dummyname = '@pega@dummy@pega@'
-          _df[dummyname] = _df.index
-          _plot2(_df, xcol, dummyname)
+            _df = copy.deepcopy(df)
+            dummyname = "@pega@dummy@pega@"
+            _df[dummyname] = _df.index
+            _plot2(_df, xcol, dummyname)
         else:
-            if chktype(df[rcols], 'Series'):
+            if chktype(df[rcols], "Series"):
                 rcolu = np.unique(df[rcols])
                 for yu in rcolu:
-                  _df = df[df[rcols]==yu]
-                  _plot2(_df, xcol, rcols)
-            elif chktype(rcols, 'list') or chktype(rcols, 'np.array'):
+                    _df = df[df[rcols] == yu]
+                    _plot2(_df, xcol, rcols)
+            elif chktype(rcols, "list") or chktype(rcols, "np.array"):
                 for rcol in rcols:
-                    if chktype(df[rcol], 'Series'):
+                    if chktype(df[rcol], "Series"):
                         rcolu = np.unique(df[rcol])
                         for yu in rcolu:
-                            _df = df[df[rcol]==yu]
+                            _df = df[df[rcol] == yu]
                             _plot2(_df, xcol, rcol)
             else:
-                sys.exit('ERROR: `rcols` is not valid column.')
-                
+                sys.exit("ERROR: `rcols` is not valid column.")
+
     df_name = namestr(-3, df)
-    
+
     # if labels == None
     if labels == None:
         _labels = _cols = df.columns
@@ -612,11 +642,16 @@ def donut(
             if chktype(df[xcol], "Series"):
                 _plot1(df, xcol, rcols)
             else:
-                sys.exit("ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name")
+                sys.exit(
+                    "ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name"
+                )
     elif chktype(df[xcols], "Series"):
         _plot1(df, xcols, rcols)
     else:
-        sys.exit("ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)")
+        sys.exit(
+            "ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)"
+        )
+
 
 # Numerical data distribution
 def dist(
@@ -624,6 +659,8 @@ def dist(
     xcols,
     rcols=None,
     rsep=False,
+    bins=None,
+    norm_hist=False,
     xlims=None,
     ylims=None,
     labels=None,
@@ -633,7 +670,6 @@ def dist(
     rug=False,
     xlog=False,
     ylog=False,
-    **kwargs
 ):
     """
     Numerical Data Distribution as historam
@@ -643,42 +679,42 @@ def dist(
     df : pandas.DataFrame
     xcols : (list or str) column name(s) of pandas.DataFrame.
     rcols : (list or str) column name(s) of pandas.DataFrame to restrict data.
-    rsep : (Boolean) separate category of rcols as independent images.
+    rsep : (Boolean) If True, separate category of rcols as independent images.
+    bins : argument for matplotlib hist(), or None, optional
+           Specification of hist bins, or None to use Freedman-Diaconis rule.
+    norm_hist : (Boolean) If True, the histogram height shows a density rather than a count.
     xlims : (list) range of y values on graph. [xmin, xmax]
     ylims : (list) range of y values on graph. [ymin, ymax]
     labels : (dict) label names to be displayed on graph.
              if None, column name will be displayed.
-    text : (Boolean) display mean, std, max, min on graph.
-    maxbar : (Boolean) mark maximum bin as blue.
-    kde : (Boolean) display kde (kernel density estimate) on graph.
-    rug : (Boolean) display rug on graph
-    xlog : (Boolean) set x-scale as log.
-    ylog : (Boolean) set y-scale as log.
+    text : (Boolean) If True, display mean, std, max, min on graph.
+    maxbar : (Boolean) If True, mark maximum bin as blue.
+             But overridden by rsep, that rsep=False disables maxbar option
+    kde : (Boolean) if True, display kde (kernel density estimate) on graph.
+    rug : (Boolean) if True, display rug on graph
+    xlog : (Boolean) if True, set x-scale as log.
+    ylog : (Boolean) if True, set y-scale as log.
     **kwargs : keyword argument for seaborn.distplot()
     """
 
     def _plot2(df, xcol, rcol):
 
         fig, ax = plt.subplots(figsize=(6, 6))
-        
+
         rcolu = np.unique(df[rcol])
         nrcolu = len(rcolu)
-        
+
         for yu in rcolu:
-            _df = df[df[rcol]==yu]
-            
-            if rsep != True:
-                plotlabel = '{}={}'.format(labels[rcol], _df[rcol].iloc[0]) ####
+            _df = df[df[rcol] == yu]
+
+            if (rsep != True) and (rcol != "@pega@dummy@pega@"):
+                plotlabel = "{}={}".format(labels[rcol], _df[rcol].iloc[0])
             else:
                 plotlabel = None
-                
+
             f = sns.distplot(
-                              _df[xcol], 
-                              kde=kde, 
-                              rug=rug,
-                              label=plotlabel,
-                              **kwargs
-                            )
+                _df[xcol], norm_hist=norm_hist, kde=kde, rug=rug, label=plotlabel
+            )
 
             mean_val = _df[xcol].mean()
             std_val = _df[xcol].std()
@@ -686,22 +722,30 @@ def dist(
             min_val = _df[xcol].min()
 
             distsummary = ": mean= {:.2f}, st.dev.= {:.2f}, min= {:.2f}, max= {:.2f}".format(
-                    mean_val, std_val, min_val, max_val
-                )
-            prefix = '{}, {}'.format(df_name, xcol)
-            
-            if rcol == '@pega@dummy@pega@':
+                mean_val, std_val, min_val, max_val
+            )
+            prefix = "{}, {}".format(df_name, xcol)
+
+            if rcol == "@pega@dummy@pega@":
                 pass
             else:
-                prefix += ', {}({})'.format(rcol, yu)
-            
+                prefix += ", {}({})".format(rcol, yu)
+
             print(prefix + distsummary)
-            
+
             if (text == True) and (nrcolu == 1):
-                fig.text(0.3, 0.8, "     mean : {:>3.02f}".format(mean_val), fontsize=16)
-                fig.text(0.3, 0.75, "        std : {:>3.02f}".format(std_val), fontsize=16)
-                fig.text(0.3, 0.7, "       max : {:>3.02f}".format(max_val), fontsize=16)
-                fig.text(0.3, 0.65, "       min : {:>3.02f}".format(min_val), fontsize=16)
+                fig.text(
+                    0.3, 0.8, "     mean : {:>3.02f}".format(mean_val), fontsize=16
+                )
+                fig.text(
+                    0.3, 0.75, "        std : {:>3.02f}".format(std_val), fontsize=16
+                )
+                fig.text(
+                    0.3, 0.7, "       max : {:>3.02f}".format(max_val), fontsize=16
+                )
+                fig.text(
+                    0.3, 0.65, "       min : {:>3.02f}".format(min_val), fontsize=16
+                )
 
             # The most frequent bin
             heights = [h.get_height() for h in f.patches]
@@ -722,19 +766,19 @@ def dist(
 
             if (maxbar == True) and (nrcolu == 1):
                 f.patches[index_max].set_color("blue")
-        
+
         if xlims != None:
             xmin = xlims[0]
             xmax = xlims[1]
             ax.set_xlim(xmin, xmax)
-        
+
         if ylims != None:
             ymin = ylims[0]
             ymax = ylims[1]
             ax.set_ylim(ymin, ymax)
-        
-        ax.set(title='  ')
-        
+
+        ax.set(title="  ")
+
         f.set(xlabel=labels[xcol])
 
         if xlog == True:
@@ -743,57 +787,56 @@ def dist(
         if ylog == True:
             f.set(yscale="log")
             plt.yticks(fontname="Liberation Sans")
-        
-        if rcol == '@pega@dummy@pega@':
+
+        if rcol == "@pega@dummy@pega@":
             suptitle = ""
         elif rsep == True:
             suptitle = "{} ({})".format(labels[rcol], df[rcol].iloc[0])
         else:
             suptitle = "{}".format(labels[rcol])
             plt.legend()
-        
+
         plt.suptitle(suptitle, fontproperties=fontsuptitle, position=(0.5, 1))
 
         plt.tight_layout()
 
         figname = "./images/dist_{}_{}".format(df_name, labels[xcol])
-        if rcol == '@pega@dummy@pega@':
+        if rcol == "@pega@dummy@pega@":
             figname += ".png"
         elif rsep == True:
-            figname += "_{}.png".format(labels[rcol]+str(df[rcol].iloc[0]))
+            figname += "_{}.png".format(labels[rcol] + str(df[rcol].iloc[0]))
         else:
             figname += "_{}.png".format(labels[rcol])
         f.figure.savefig(figname)
 
-    
     def _plot1(df, xcol, rcols):
         if rcols == None:
-          _df = copy.deepcopy(df)
-          dummyname = '@pega@dummy@pega@'
-          _df[dummyname] = 0
-          _plot2(_df, xcol, dummyname)
+            _df = copy.deepcopy(df)
+            dummyname = "@pega@dummy@pega@"
+            _df[dummyname] = 0
+            _plot2(_df, xcol, dummyname)
         else:
-            if chktype(df[rcols], 'Series'):
+            if chktype(df[rcols], "Series"):
                 if rsep == True:
                     rcolu = np.unique(df[rcols])
                     for yu in rcolu:
-                      _df = df[df[rcols]==yu]
-                      _plot2(_df, xcol, rcols)
+                        _df = df[df[rcols] == yu]
+                        _plot2(_df, xcol, rcols)
                 else:
                     _plot2(df, xcol, rcols)
-            elif chktype(rcols, 'list') or chktype(rcols, 'np.array'):
+            elif chktype(rcols, "list") or chktype(rcols, "np.array"):
                 for rcol in rcols:
-                    if chktype(df[rcol], 'Series'):
+                    if chktype(df[rcol], "Series"):
                         if rsep == True:
-                          rcolu = np.unique(df[rcol])
-                          for yu in rcolu:
-                              _df = df[df[rcol]==yu]
-                              _plot2(_df, xcol, rcol)
+                            rcolu = np.unique(df[rcol])
+                            for yu in rcolu:
+                                _df = df[df[rcol] == yu]
+                                _plot2(_df, xcol, rcol)
                         else:
-                          _plot2(df, xcol, rcol)
+                            _plot2(df, xcol, rcol)
             else:
-                sys.exit('ERROR: `rcols` is not valid column.')
-    
+                sys.exit("ERROR: `rcols` is not valid column.")
+
     df_name = namestr(-3, df)
 
     # if labels == None
@@ -807,12 +850,17 @@ def dist(
             if chktype(df[xcol], "Series"):
                 _plot1(df, xcol, rcols)
             else:
-                sys.exit("ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name")
+                sys.exit(
+                    "ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name"
+                )
     elif chktype(df[xcols], "Series"):
         _plot1(df, xcols, rcols)
     else:
-        sys.exit("ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)")
-        
+        sys.exit(
+            "ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)"
+        )
+
+
 # Numerical data distributions, comparing multiple dataframe
 def dists(
     dfs,
@@ -824,7 +872,6 @@ def dists(
     rug=False,
     xlog=False,
     ylog=False,
-  
     **kwargs
 ):
     """
@@ -928,30 +975,40 @@ def dists(
             for df in dfs:
                 for xcol in xcols:
                     if not chktype(df[xcol], "Series"):
-                        sys.exit("ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name.\n \
+                        sys.exit(
+                            "ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name.\n \
                                     `{}` in `{}` raised error.".format(
                                 col, namestr(df)
-                            ))
+                            )
+                        )
 
             for xcol in xcols:
                 for df in dfs:
                     if chktype(df[xcol], "Series"):
                         _plot(df, xcol)
                     else:
-                        sys.exit("ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name")
+                        sys.exit(
+                            "ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name"
+                        )
         else:
-            sys.exit("ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)")
+            sys.exit(
+                "ERROR: `xcols` is supposed to be a list of pandas.DataFrame column name(s)"
+            )
     else:
         for df in dfs:
             if not chktype(df[xcols], "Series"):
-                sys.exit("ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name")
+                sys.exit(
+                    "ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name"
+                )
         for df in dfs:
             if chktype(df[xcols], "Series"):
                 _plot(df, xcols)
             else:
-                sys.exit("ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name")
-                
-                
+                sys.exit(
+                    "ERROR: element of `xcols` is supposed to be a list of pandas.DataFrame column name"
+                )
+
+
 # Scatter plots
 def find_optdim(ncol, aspect_target=9 / 16, addcol=True):
     def _find_optdim(ncol, aspect_target, opt):
@@ -988,11 +1045,11 @@ def scatter(
     df,
     xcols,
     ycol,
-    ncols=None, 
-    aspect_target=9 / 16, 
+    ncols=None,
+    aspect_target=9 / 16,
     addcol=True,
-    ccol='blue',  # column name. if None, default color (blue?)
-    cmap='jet',
+    ccol="blue",  # column name. if None, default color (blue?)
+    cmap="jet",
     cmin=None,  # vmin
     cmax=None,  # vmax
     size=1,  # scatter plot size
@@ -1038,7 +1095,7 @@ def scatter(
                      if None, all `xcols` will be enlisted.
     """
     df_name = namestr(df)
-    
+
     # figure dimension decision
     nxcols = len(xcols)
     if ncols == None:
@@ -1073,7 +1130,7 @@ def scatter(
             scatter_color = ccol
         else:
             errorflag = 1
-            
+
     if errorflag == 1:
         sys.exit("ERROR: `ccol` should be a color name or column name in DataFrame")
 
