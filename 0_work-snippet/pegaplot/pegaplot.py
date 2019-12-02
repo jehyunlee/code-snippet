@@ -4,7 +4,7 @@
 # Jehyun Lee (jehyun.lee@gmail.com)
 
 SEABORN_STYLE = "whitegrid"
-SEABORN_PALETTE = "muted"
+SEABORN_PALETTE = "bright"
 SEABORN_CONTEXT = "talk"
 
 # -------------------------------------------------------------
@@ -200,16 +200,28 @@ import traceback
 
 
 def namestr(order, *expr):
-    for i in range(-10, -1):
-        (filename, line_number, function_name, text) = traceback.extract_stack()[i]
-        print(text)
+#     for i in range(-10, -1):
+#         (filename, line_number, function_name, text) = traceback.extract_stack()[i]
+#         print('### {},\n# filename = {}, \n# line_number={}, \n# function_name={}, \n# text={}\n\n'.format(traceback.extract_stack()[i], filename, line_number, function_name, text))
+#         if '<ipython-input-' in filename:
+# #             result = traceback.print_tb(filename)
+# #             print('# filename extract=\nresult={}', result)
+#               print(
+    
+#               exc_type, exc_value, exc_traceback = sys.exc_info()
+#               print(exc_type, exc_value, exc_traceback)
+#               print('\n## traceback.print_exc\n', traceback.print_exc())
+# #               print('\n## traceback.print_last\n', traceback.print_last())
+#               print('\n## traceback.print_tb\n', traceback.print_tb(exc_traceback))
+#               print('\n## traceback.print_stack\n', traceback.print_stack())
+#               print('\n## traceback.extract_stack\n', traceback.extract_stack())
 
     (filename, line_number, function_name, text) = traceback.extract_stack()[order]
     begin = text.find("(") + 1
     end = text.find(",", begin)
     ans = text[begin:end].strip(" ")
     if "=" in ans:
-        ans = ans.split("=")[1]
+        ans = ans.split("=")[1].strip(" ")
     return ans
 
 
@@ -713,7 +725,7 @@ def dist(
                 plotlabel = None
 
             f = sns.distplot(
-                _df[xcol], norm_hist=norm_hist, kde=kde, rug=rug, label=plotlabel
+                _df[xcol], norm_hist=norm_hist, kde=kde, rug=rug, label=plotlabel, bins=bins
             )
 
             mean_val = _df[xcol].mean()
