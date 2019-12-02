@@ -13094,27 +13094,24 @@ div#notebook {
 </ul>
 <hr>
 <h2 id="Known-Issues"><strong>Known Issues</strong><a class="anchor-link" href="#Known-Issues">&#182;</a></h2><ol>
-<li>결과물인 plot 그림 <code>filename</code>에 <code>DataFrame</code> 이름이 들어갑니다. 실행 cell의 내용을 읽어오는 능력에 한계가 있기 때문에 pegaplot 함수는 cell의 <strong>맨 마지막 줄</strong>에, <strong>single line</strong>으로 실행해야 합니다.</li>
+<li>pegaplot 함수는 cell의 <strong>맨 마지막 줄</strong>에, <strong>single line</strong>으로 실행해야 합니다.  <ul>
+<li>결과물인 plot 그림 <code>filename</code>에 <code>DataFrame</code> 변수 이름을 읽어서 넣는데,  </li>
+<li>jupyter의 실행 cell 내용을 읽어오는 능력에 한계가 있기 때문입니다.  </li>
+</ul>
+</li>
+<li>tutorial이 미완입니다.  <ul>
+<li>dist()가 아직 디버깅중입니다.  </li>
+<li>scatter()는 implementation 중입니다.</li>
+</ul>
+</li>
 </ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">&#182;</a></h3><p><a href="">0. 개발 동기</a><br>
-<a href="">1. 설치 방법</a><br>
-<a href="">2. 사용 방법</a><br>
-<a href="">- 2.1. import pegaplot as pp</a><br>
-<a href="">- 2.2. 예제 데이터 읽기</a><br>
-<a href="">- 2.3. df2md()</a><br>
-<a href="">- 2.4. bar()</a><br>
-<a href="">--- 2.4.1. bar(DataFrame, column): 기본 사용법</a><br>
-<a href="">--- 2.4.2. xcols: 복수 column 분석</a><br>
-<a href="">--- 2.4.3. rols: 제약변수</a><br>
-<a href="">--- 2.4.4. labels: Custom Labels</a><br>
-<a href="">--- 2.4.5. gap: Data value 출력</a></p>
+<hr>
+<h2 id="Development-Plan"><strong>Development Plan</strong><a class="anchor-link" href="#Development-Plan">&#182;</a></h2><ul>
+<li><strong>Numerical Data Distribution:</strong> Box plot, scatter plot    </li>
+<li><strong>Correlation:</strong> PCA, FA</li>
+<li><strong>Machine Learning:</strong> Prediction <em>vs</em> True </li>
+<li><strong>Quality Control:</strong> DPI setting, palette setting methods  </li>
+</ul>
 
 </div>
 </div>
