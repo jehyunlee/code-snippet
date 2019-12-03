@@ -12,7 +12,7 @@ SEABORN_CONTEXT = "talk"
 import numpy as np
 import pandas as pd
 import seaborn as sns
-import os, copy, sys
+import os, copy, sys, io
 from IPython.display import Markdown, display
 import matplotlib.colors as mcolors
 from matplotlib import gridspec
@@ -194,10 +194,52 @@ fontsuptitle.set_size(20)
 
 # <<<<<< Fonts settings
 
+# >>>>>> Figure settings
+mpl.rcParams['figure.dpi'] = 200
+
+
 # >>>>>> Utilities
+# Figure Settings
+styles = ["whitegrid", "dark", "white", "ticks", "darkgrid"]
+palettes = ["pastel", "muted", "deep", "bright", "colorblind", "dark", "hls", "husl"]
+contexts = ["notebook", "paper", "talk", "poster"]
+
+def set(style=None, palette=None, context=None, dpi=None):    
+    """
+    Figure Style Setting
+    
+    Parameters
+    ----------------
+    dpi : (float) image resolution. dot per inch
+    style : (str) seaborn style: "whitegrid", "dark", "white", "ticks", "darkgrid".
+    palette : (str) seaborn color palette: matplotlib colormap | hls | husl
+    context : (str) seaborn context: "notebook", "paper", "talk", and "poster"
+    """
+    global SEABORN_STYLE, SEABORN_PALETTE, SEABORN_CONTEXT
+    
+    if dpi != None:
+        mpl.rcParams['figure.dpi'] = dpi
+        
+    if (style != None) and (style in styles):
+        SEABORN_STYLE = style
+        sns.set_style(style)        
+        
+    if (palette != None) and (palette in []):
+        SEABORN_PALETTE = palette
+        sns.set_palette(palette)
+        sns.palplot(sns.color_palette(palette))        
+        
+    if context != None:
+        SEABORN_CONTEXT = context
+        sns.set_context(context)        
+        
+    print('Figure dpi = {}'.format(mpl.rcParams['figure.dpi']))
+    print('Seaborn Style = {}'.format(SEABORN_STYLE))
+    print('Seaborn Palette = {}'.format(SEABORN_PALETTE))
+    print('Seaborn Context = {}'.format(SEABORN_CONTEXT))
+
 # Retrieving Variable Name
 import traceback
-
 
 def namestr(order, *expr):
 #     for i in range(-10, -1):
@@ -214,8 +256,8 @@ def namestr(order, *expr):
 # #               print('\n## traceback.print_last\n', traceback.print_last())
 #               print('\n## traceback.print_tb\n', traceback.print_tb(exc_traceback))
 #               print('\n## traceback.print_stack\n', traceback.print_stack())
-#               print('\n## traceback.extract_stack\n', traceback.extract_stack())
-
+#               print('\n## traceback.extract_stack\n', traceback.extract_stack())  
+    
     (filename, line_number, function_name, text) = traceback.extract_stack()[order]
     begin = text.find("(") + 1
     end = text.find(",", begin)
@@ -232,6 +274,15 @@ def chktype(var, typename):
     else:
         return False
 
+# Fix label for figure file name
+def fixlabel(labels, fixcol):
+    fixchars = ['\n', '\t', '/', '<', '>', '^']
+    fixstr = labels[fixcol]
+    for fixchar in fixchars:
+        if fixchar in fixstr:
+            fixstr = fixstr.replace(fixchar, '')
+        fixstr = fixstr.strip('')
+    return fixstr
 
 # <<<<<< Utilities
 
@@ -303,11 +354,15 @@ def bar(df, xcols, rcols=None, labels=None, gap=0.03, **kwargs):
         plt.suptitle(suptitle, fontproperties=fontsuptitle, position=(0.5, 1))
         plt.tight_layout()
 
-        figname = "./images/cat_bar_{}_{}".format(df_name, labels[xcol])
+        figxlabel = fixlabel(labels, xcol)
+        print(figxlabel)
+        figname = "./images/cat_bar_{}_{}".format(df_name, figxlabel)
         if rcol == "@pega@dummy@pega@":
             figname += ".png"
         else:
-            figname += "_{}.png".format(labels[rcol] + str(df[rcol].iloc[0]))
+            figrlabel = fixlabel(labels, rcol)
+            figname += "_{}.png".format(figrlabel + str(df[rcol].iloc[0]))
+        
         plt.savefig(figname)
 
     def _plot1(df, xcol, rcols):
@@ -317,14 +372,14 @@ def bar(df, xcols, rcols=None, labels=None, gap=0.03, **kwargs):
             _df[dummyname] = _df.index
             _plot2(_df, xcol, dummyname)
         else:
-            if chktype(df[rcols], "Series"):
+            if chktype(df[rcols], "Series") and (rcols != xcol):
                 rcolu = np.unique(df[rcols])
                 for yu in rcolu:
                     _df = df[df[rcols] == yu]
                     _plot2(_df, xcol, rcols)
             elif chktype(rcols, "list") or chktype(rcols, "np.array"):
                 for rcol in rcols:
-                    if chktype(df[rcol], "Series"):
+                    if chktype(df[rcol], "Series") and (rcol != xcol):
                         rcolu = np.unique(df[rcol])
                         for yu in rcolu:
                             _df = df[df[rcol] == yu]
@@ -712,12 +767,26 @@ def dist(
     def _plot2(df, xcol, rcol):
 
         fig, ax = plt.subplots(figsize=(6, 6))
-
-        rcolu = np.unique(df[rcol])
+        
+        _df0 = copy.deepcopy(df[[xcol, rcol]])
+        size_before_dropna = _df0.shape[0]
+        _df0.dropna(inplace=True)
+        size_after_dropna = _df0.shape[0]
+        size_diff_dropna = size_before_dropna - size_after_dropna
+        
+        if (size_diff_dropna != 0) and (rcol != "@pega@dummy@pega@"):
+            print('## Missing data dropped in {}["{}"] ({}): {}'.format(df_name, rcol, labels[rcol].replace('\n', ''), size_diff_dropna))
+            
+        rcolu = np.unique(_df0[rcol])
         nrcolu = len(rcolu)
 
         for yu in rcolu:
-            _df = df[df[rcol] == yu]
+            _df = _df0[_df0[rcol] == yu]
+            
+            size_before_dropna = _df.size
+            _df.dropna(inplace=True)
+            size_after_dropna = _df.size
+            size_diff_dropna = size_before_dropna - size_after_dropna
 
             if (rsep != True) and (rcol != "@pega@dummy@pega@"):
                 plotlabel = "{}={}".format(labels[rcol], _df[rcol].iloc[0])
@@ -742,7 +811,13 @@ def dist(
                 pass
             else:
                 prefix += ", {}({})".format(rcol, yu)
-
+            
+            if size_diff_dropna != 0:
+                if rcol == "@pega@dummy@pega@":
+                    print('# Missing data dropped in {}["{}"] ({}): {}'.format(df_name, xcol, labels[xcol], size_diff_dropna))
+                else:
+                    print('# Missing data dropped in {}["{}"] ({}) @{}={}: {}'.format(df_name, xcol, labels[xcol], rcol, yu, size_diff_dropna))
+            
             print(prefix + distsummary)
 
             if (text == True) and (nrcolu == 1):
@@ -808,17 +883,22 @@ def dist(
             suptitle = "{}".format(labels[rcol])
             plt.legend()
 
-        plt.suptitle(suptitle, fontproperties=fontsuptitle, position=(0.5, 1))
+        plt.suptitle(suptitle, fontproperties=fontsuptitle, position=(0.5, 0.98))
 
         plt.tight_layout()
 
-        figname = "./images/dist_{}_{}".format(df_name, labels[xcol])
+        
+        figxcol = fixlabel(labels, xcol)
+        if rcol != '@pega@dummy@pega@':
+            figrcol = fixlabel(labels, rcol)
+            
+        figname = "./images/dist_{}_{}".format(df_name, figxcol)
         if rcol == "@pega@dummy@pega@":
             figname += ".png"
         elif rsep == True:
-            figname += "_{}.png".format(labels[rcol] + str(df[rcol].iloc[0]))
+            figname += "_{}.png".format(figrcol + str(df[rcol].iloc[0]))
         else:
-            figname += "_{}.png".format(labels[rcol])
+            figname += "_{}.png".format(figrcol)
         f.figure.savefig(figname)
 
     def _plot1(df, xcol, rcols):
@@ -910,6 +990,7 @@ def dists(
         labels_df = ""
         for df in dfs:
             df_name = namestr(df)
+            
             f = sns.distplot(
                 df[xcol],
                 norm_hist=norm,
