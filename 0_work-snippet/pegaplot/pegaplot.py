@@ -1187,14 +1187,14 @@ def scatter(
                      the filename will be './images/scatter_{DataFrame_name}_{filename}.png'
                      if None, all `xcols` will be enlisted.
     """
-    df_name = namestr(df)
+    df_name = namestr(-3, df)
 
     # figure dimension decision
     nxcols = len(xcols)
     if ncols == None:
         nrows, ncols, dummy = find_optdim(nxcols, aspect_target=9 / 16, addcol=True)
     else:
-        nrows = (nxcols // ncols) + 1
+        nrows = (nxcols // ncols)
         dummy = (nrows * ncols) - nxcols
     print(
         "Optimum no. of columns and rows are found as {} and {}, with {} dummy frame.".format(
@@ -1245,6 +1245,7 @@ def scatter(
                 s=size,
                 vmin=cmin,
                 vmax=cmax,
+                edgecolors='gray'
             )
             sns.regplot(
                 x=xcols[i],
@@ -1288,9 +1289,63 @@ def scatter(
         suptitle = "{} ({})".format(labels[ycol], suptitle_aux)
     plt.suptitle(suptitle, fontproperties=fontsuptitle)
 
-    plt.tight_layout()
+    plt.subplots_adjust(left=0.03, bottom=0.2, right=0.97, top=0.9)
     if filename == None:
         filename = ""
         for xcol in xcols:
             filename += xcol
     plt.savefig("./images/scatter_{}_{}.png".format(df_name, filename))
+    
+
+def truepred(y_true, y_pred, ccol, alpha=0.5, size=1, linecolor='blue', suptitle=None, suptitle_aux=None):
+    fig, ax = plt.subplots(figsize=(5,5))
+    x = y_pred
+    y = y_true
+    
+    sns.regplot(x, y, color=ccol, 
+                scatter_kws={'alpha':alpha, 's':1},
+                line_kws={'linewidth':2, 'color':linecolor})
+    ax.plot([0,1], [0,1], color='gray', linestyle=':')
+#     ax.text(0.5, 0.4, 'RMSE = {:.3f}'.format(rmse), transform=ax.transAxes, fontsize=20, verticalalignment='top')
+#     ax.text(0.5, 0.3, 'R2 = {:.3f}'.format(r2), transform=ax.transAxes, fontsize=20, verticalalignment='top')
+    ax.set_xlabel('Prediction')    
+    ax.set_xlim(0,1)
+    ax.set_ylim(0,1)
+    ax.set_ylabel('True')
+    
+    if suptitle != None:
+        if suptitle_aux == None:
+            suptitle = suptitle
+        else:
+            suptitle = "{} ({})".format(suptitle, suptitle_aux)
+        plt.suptitle(suptitle, fontproperties=fontsuptitle)
+    
+    plt.tight_layout()
+    plt.savefig(f'./images/truepred_{suptitle}.png')
+    
+
+# def truepreddf(df, y_true, y_pred, ccol, cmap='jet', alpha=0.5, size=1, linecolor='blue', suptitle=None, suptitle_aux=None):
+#     fig, ax = plt.subplots(figsize=(5,5))
+#     x = y_pred
+#     y = y_true
+    
+#     sns.regplot(x, y, color=ccol, 
+#                 scatter_kws={'alpha':alpha, 's':1},
+#                 line_kws={'linewidth':2, 'color':linecolor})
+#     ax.plot([0,1], [0,1], color='gray', linestyle=':')
+# #     ax.text(0.5, 0.4, 'RMSE = {:.3f}'.format(rmse), transform=ax.transAxes, fontsize=20, verticalalignment='top')
+# #     ax.text(0.5, 0.3, 'R2 = {:.3f}'.format(r2), transform=ax.transAxes, fontsize=20, verticalalignment='top')
+#     ax.set_xlabel('Prediction')    
+#     ax.set_xlim(0,1)
+#     ax.set_ylim(0,1)
+#     ax.set_ylabel('True')
+    
+#     if suptitle != None:
+#         if suptitle_aux == None:
+#             suptitle = suptitle
+#         else:
+#             suptitle = "{} ({})".format(suptitle, suptitle_aux)
+#         plt.suptitle(suptitle, fontproperties=fontsuptitle)
+    
+#     plt.tight_layout()
+#     plt.savefig(f'./images/truepred_{suptitle}.png')    
