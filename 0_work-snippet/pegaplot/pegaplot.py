@@ -1297,21 +1297,51 @@ def scatter(
     plt.savefig("./images/scatter_{}_{}.png".format(df_name, filename))
     
 
-def truepred(y_true, y_pred, ccol, alpha=0.5, size=1, linecolor='blue', suptitle=None, suptitle_aux=None):
+def truepred(y_true, y_pred, ccol='green', alpha=0.5, size=1, linecolor='blue', xylims=None, suptitle=None, suptitle_aux=None):
     fig, ax = plt.subplots(figsize=(5,5))
     x = y_pred
     y = y_true
-    
+        
     sns.regplot(x, y, color=ccol, 
-                scatter_kws={'alpha':alpha, 's':1},
+                scatter_kws={'alpha':alpha, 's':size},
                 line_kws={'linewidth':2, 'color':linecolor})
-    ax.plot([0,1], [0,1], color='gray', linestyle=':')
+    
 #     ax.text(0.5, 0.4, 'RMSE = {:.3f}'.format(rmse), transform=ax.transAxes, fontsize=20, verticalalignment='top')
 #     ax.text(0.5, 0.3, 'R2 = {:.3f}'.format(r2), transform=ax.transAxes, fontsize=20, verticalalignment='top')
+    
+    
+    # xlim, ylim
+    if xylims == None:
+        axmin = min(min(y_true), min(y_pred))
+        axmax = max(max(y_true), max(y_pred))
+#     elif chktype(xylims, 'list') or chktype(xylims, 'array'):
+    else:
+        axmin = xylims[0]
+        axmax = xylims[1]
+    
+    ax.set_xlim(axmin, axmax)
+    ax.set_ylim(axmin, axmax)
+    
+    # xticklabels, yticklabels
+    plt.draw()
+    xtl = ax.get_xticklabels()
+    ytl = ax.get_yticklabels()
+    
+    if len(xtl) < len(ytl):
+        ticklabels = xtl
+    else:
+        ticklabels = ytl
+    
+    ticks = [float(str(label).split("'")[-2].strip('')) for label in ticklabels]
+    
+    ax.set_xticks(ticks)
+    ax.set_yticks(ticks)
+    ax.plot([ticks[0], ticks[-1]], [ticks[0], ticks[-1]], color='gray', linestyle=':')
+    
+    # labels and titles
     ax.set_xlabel('Prediction')    
-    ax.set_xlim(0,1)
-    ax.set_ylim(0,1)
     ax.set_ylabel('True')
+    ax.set_title(' ')
     
     if suptitle != None:
         if suptitle_aux == None:
@@ -1320,9 +1350,9 @@ def truepred(y_true, y_pred, ccol, alpha=0.5, size=1, linecolor='blue', suptitle
             suptitle = "{} ({})".format(suptitle, suptitle_aux)
         plt.suptitle(suptitle, fontproperties=fontsuptitle)
     
+    
     plt.tight_layout()
     plt.savefig(f'./images/truepred_{suptitle}.png')
-    
 
 # def truepreddf(df, y_true, y_pred, ccol, cmap='jet', alpha=0.5, size=1, linecolor='blue', suptitle=None, suptitle_aux=None):
 #     fig, ax = plt.subplots(figsize=(5,5))
