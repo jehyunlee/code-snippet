@@ -13,4 +13,17 @@ import seaborn as sns
 
 from krfont import add_KRFONT  
 
+def chktype(var, typename):
+    if typename in str(type(var)):
+        return True
+    else:
+        if typename == 'list':
+            if 'array' in str(type(var)):
+                return True
+            else:
+                return False
+        else:
+            return False
+    
+
 

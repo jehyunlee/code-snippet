@@ -46,6 +46,7 @@ import matplotlib.colors as mcolors
 import seaborn as sns
 
 from krfont import add_KRFONT, set_KRFONT
+from fn import chktype
 
 get_ipython().run_line_magic("matplotlib", "inline")
 
@@ -111,6 +112,12 @@ set()
 
 fonts = settings['fonts']
 
+# fontdicts
+font_label = fonts['label']     # xlabel and ylabel
+font_title = fonts['title']     # title
+font_negsup = fonts['negsub']   # negative(-) on superscript 
+font_math = fonts['math']       # math
+
 # fontproperties:suptitle
 font_suptitle = mpl.font_manager.FontProperties()
 font_suptitle_ = fonts['suptitle']
@@ -118,17 +125,59 @@ font_suptitle.set_family(font_suptitle_['family'])
 font_suptitle.set_size(font_suptitle_['size'])
 font_suptitle.set_weight(font_suptitle_['weight'])
 
-# fontdicts
-font_title = fonts['title']     # title
-font_label = fonts['label']     # xlabel and ylabel
-font_negsup = fonts['negsub']   # negative(-) on superscript 
-font_math = fonts['math']       # math
-
 
 ### Plot Settings
-def subplots():
-    fig, ax = plt.subplots()
-    ax.set_title('title', fontdict=font_title, pad=15)
-    ax.set_xlabel('xlabel', fontdict=font_label, labelpad=12)
-    ax.set_ylabel('ylabel', fontdict=font_label, labelpad=12)
+def subplots(xlabel=None, 
+             ylabel=None, 
+             title=None, 
+             suptitle=None,
+             ncols=1, nrows=1, 
+             figsize=None, 
+             sharex=False, 
+             sharey=False,
+             **kwargs):
+    
+    if figsize==None:
+        figsize = params['figsize']
+    
+    if ncols * nrows > 1:
+        figsize = [params['figsize'][0]*ncols, 
+                   params['figsize'][1]*nrows]
+        
+        fig, ax = plt.subplots(ncols=ncols, nrows=nrows, figsize=figsize,
+                              sharex=sharex, sharey=sharey)
+        axes = ax.ravel() 
+        
+        # type check: xlabel and ylabel
+        for i in range(len(axes)):
+            if sharex==True and chktype(xlabel, 'str'):
+                if i >= len(axes)-ncols:
+                    axes[i].set_xlabel(xlabel, fontdict=font_label, labelpad=12)
+            elif sharex==True and chktype(xlabel, 'list'):
+                if i >= len(axes)-ncols:
+                    axes[i].set_xlabel(xlabel[0], fontdict=font_label, labelpad=12)
+            elif sharex==False and chktype(xlabel, 'list') and len(xlabel)==len(axes):
+                axes[i].set_xlabel(xlabel[i], fontdict=font_label, labelpad=12)
+            else:
+                sys.exit(f'NotValidTypeOrLength: type={type(xlabel)}, xlabel={xlabel}')
+
+            if sharey==True and chktype(ylabel, 'str'):
+                if i % ncols == 0:
+                    axes[i].set_ylabel(ylabel, fontdict=font_label, labelpad=12)
+            elif sharey==True and chktype(ylabel, 'list'):
+                if i % ncols == 0:
+                    axes[i].set_ylabel(ylabel[0], fontdict=font_label, labelpad=12)
+            elif sharey==False and chktype(ylabel, 'list') and len(ylabel)==len(axes):
+                axes[i].set_ylabel(ylabel[i], fontdict=font_label, labelpad=12)
+            else:
+                sys.exit(f'NotValidTypeOrLength: type={type(ylabel)}, ylabel={ylabel}')
+
+    else:
+        fig, ax = plt.subplots(figsize=figsize)
+        ax.set_xlabel(xlabel, fontdict=font_label, labelpad=12)
+        ax.set_ylabel(ylabel, fontdict=font_label, labelpad=12)
+        ax.set_title(title, fontdict=font_title, pad=12)
+    
+    fig.suptitle(suptitle, y=1.05, fontproperties=font_suptitle)
+    
     return fig, ax
