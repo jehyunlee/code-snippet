@@ -1,0 +1,48 @@
+{
+    "params": {
+        "color" : "green",
+        "style" : "seaborn-whitegrid",
+        "palette" : "bright",
+        "context" : "talk",
+        "mathfont" : "cm",
+        "krfont" : "NanumGothic",
+        "figsize" : [4,4],
+        "showdpi" : 72,
+        "filedpi" : 200
+    },
+    
+    "fonts":{
+        "suptitle":{
+            "family": "serif",
+            "size": 22,
+            "weight": "bold"
+        },
+        
+        "title":{
+            "family": "sans-serif",
+            "size": 20,
+            "color": "cornflowerblue",
+            "weight": "bold",
+            "verticalalignment": "baseline",
+            "horizontalalignment": "center"
+        },
+        
+        "label": {
+            "family": "sans-serif",
+            "color": "gray",
+            "weight": "bold",
+            "horizontalalignment": "center"
+        },
+        
+        "negsub": {
+            "fontname": "Liberation Sans",
+            "horizontalalignment": "center"
+        },
+        
+        "math": {
+            "verticalalignment": "bottom",
+            "horizontalalignment": "center"
+        }
+    
+    }
+}
