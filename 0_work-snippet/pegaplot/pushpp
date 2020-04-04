@@ -1,3 +1,0 @@
-#!/bin/bash
-cp pegaplot.py /app/python
-echo "copy complete"
