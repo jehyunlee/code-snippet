@@ -45,6 +45,7 @@ Below are the list of them with proper links.
 4.3. Create Timestamp from split data [<a href='https://github.com/jehyunlee/code-snippet/blob/master/3_pandas/IEC61400.md#6-create-timestamp-from-split-data'>Link</a>]  
 4.4. Find first data of each date [<a href='https://github.com/jehyunlee/code-snippet/blob/master/3_pandas/IEC61400.md#8-first-data-of-each-date'>Link</a>]  
 4.5. Retrieving the name of a variable [[Link](https://github.com/jehyunlee/code-snippet/blob/master/3_pandas/varname.md)]  
+4.6. Creating unicode dictionary [[Link](https://github.com/jehyunlee/code-snippet/blob/master/3_pandas/unicode_json.py)]
 
 5. techniques of `numpy`.  
 5.1. Numpy vectorization functions [<a href='https://github.com/jehyunlee/code-snippet/blob/master/4_numpy/vectorize.md'>Link</a>]  
